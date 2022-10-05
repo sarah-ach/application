@@ -9,6 +9,7 @@ use App\Imports\SplicesImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\splice;
 
+
 class SpliceController extends Controller
 {
    /**
@@ -35,6 +36,12 @@ class SpliceController extends Controller
     public function import() 
     {
         Excel::import(new SplicesImport,request()->file('file'));
+        return back();
+    }
+
+    public function delete()
+    {
+        splice::truncate();
         return back();
     }
 }

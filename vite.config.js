@@ -4,9 +4,11 @@ import path from 'path'
 
 export default defineConfig({
     plugins: [
-        laravel([
+        laravel({
+            input: [
+            'resources/sass/app.scss',
             'resources/js/app.js',
-        ]),
+        ]}),
     ],
     resolve: {
         alias: {

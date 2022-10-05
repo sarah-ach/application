@@ -26,6 +26,9 @@
 
 
 <body>
+@if (Route::has('login'))
+          
+          @auth   
   <div class="container-fluid">
     <!-- navigation bar !-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -60,7 +63,7 @@
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Ajouter') }}</a>
                                 </li>
                             @endif
                         @else
@@ -88,7 +91,7 @@
         </nav>
 
         <!--content page !-->
-        
+
 
 <div class="row mt-4 col-md-12">
   <div class="col-md-12 grid-margin">
@@ -115,8 +118,7 @@
   </div>
 </div>
 
-
-       <div class="row mt-2 col-md-12">
+<div class="row mt-2 col-md-12">
 
        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card  mt-2 col-md-12">
     <div class="card card-statistics">
@@ -125,12 +127,18 @@
           <div class="float-left">
             <i class="mdi mdi-receipt text-warning icon-lg"></i>
           </div>
+         
+            <p class="mb-0 text-left">La dérnier mis à jour</p>
+            <div class="fluid-container">
+                       
+            <i class="fas fa-calendar input-prefix" style="color:red">{{$Ldate=date('Y-m-d');}}</i>
+
+            </div>
+          
           <div class="float-right">
             <p class="mb-0 text-right">Numéro de Post</p>
             <div class="fluid-container">
-                        
-            
-              
+                       
             <h3 class="font-weight-medium text-right mb-0">POST 01</h3>
 
             
@@ -158,11 +166,9 @@
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li><a class="dropdown-item" href="">Circuit</a></li>
-                    <li><a class="dropdown-item" href="">Splice</a></li>
-                    <li><a class="dropdown-item" href="">Left Splice</a></li>
-                    <li><a class="dropdown-item" href="">Right Splice</a></li>
-                    <li><a class="dropdown-item" href="">Users</a></li>
-                    <li><a class="dropdown-item" href="">Opération</a></li>
+                    <li><a class="dropdown-item" href="/splices">Splice</a></li>
+                    
+                
 
                 </ul>
               </div>
@@ -178,14 +184,20 @@
     <div class="card card-statistics">
       <div class="card-body">
         <div class="d-flex flex-md-column flex-xl-row flex-wrap justify-content-between align-items-md-center justify-content-xl-between">
-          <div class="float-left">
-            <i class="mdi mdi-poll-box text-success icon-lg"></i>
-          </div>
+         
           <div class="float-right">
-            <p class="mb-0 text-right">Importer base de donnée</p>
+            
             <div class="fluid-container">
               <!-- <h3 class="font-weight-medium text-right mb-0">5693</h3> -->
-              <button class="btn btn-warning btn-rounded " type="button">Importer</button>
+              <form action="{{ route('splices.import') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="file" name="file" class="form-control"><br>
+                <button class="btn btn-warning btn-rounded ">Importer</button>
+                <br>
+                
+              
+            </form>
+             
             </div>
           </div>
         </div>
@@ -202,14 +214,16 @@
           <div class="float-left">
             <i class="mdi mdi-account-box-multiple text-info icon-lg"></i>
           </div>
-          <div class="float-right">
-            <p class="mb-0 text-right">La dérnier mis à jour</p>
-            <div class="fluid-container">
-              <!-- <h3 class="font-weight-medium text-right mb-0">246</h3> -->
-             
-              <div  id="date-picker" class="md-form md-outline input-with-post-icon datepicker" inline="true">
+          <div class="float-left">
+          <p class="mb-0 text-left">Choisir l'action</p>
+            <div class="fluid-container btn-block">
+            <form action="{{ route('splices.import') }}" method="POST" enctype="multipart/form-data">
+                @csrf
                 
-                <i class="fas fa-calendar input-prefix" style="color:red;">{{$Ldate=date('Y-m-d');}}</i>
+                  &nbsp;&nbsp;&nbsp;
+                 <a class="btn btn-success float-end btn-rounded" href="{{ route('splices.export') }}">Exporter</a>
+                 <a class="btn btn-danger btn-rounded" href="{{ route('splices.delete') }}">Supprimer</a> &nbsp;&nbsp;&nbsp;
+            </form>
 
               </div>
             </div>
@@ -306,7 +320,63 @@
   </div>
 </div>
 </div>
+@else
+<!-- Responsive navbar-->
+<div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#!">Verification App</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    @if (Route::has('login'))
+          
+                   @auth
 
+                        <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Dashbord</a></li>
+                    @else
+                        <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Admin</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Operator</a></li>
+                        @endauth
+                    @endif
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Header - set the background image for the header in the line below-->
+            <div class="text-center my-5">
+                <img class="img-fluid" src="{{asset('img/img1.jpg')}}" alt="..." />
+                <h1 class="text-white fs-3 fw-bolder">Full Width Pics</h1>
+                <p class="text-white-50 mb-0">Landing Page Template</p>
+            </div>
+        <!-- </header> -->
+        
+       
+
+<div>
+
+      <nav class="navbar navbar-white bg-white">
+      <form class="container-fluid justify-content-start">
+          @if (Route::has('login'))
+          
+          @auth
+
+          <a href="{{ url('/login') }}" ><button class="btn btn-default btn-lg me-4 position-absolute top-50 start-50" type="button">Dashbord</button></a>
+          @else
+          <a href="{{ url('/login') }}" ><button type="button" class="btn btn-default btn-lg me-4 position-absolute top-50 start-50"> Admin</button></a>
+          <!--<a href="{{ url('/login') }}" > <button class="btn btn-outline-danger me-4" type="button">Admin</button></a>!-->
+          <a href="{{ url('/login') }}" > <button type="button" class="btn btn-default btn-lg me-4 position-absolute buttom-50 end-50"> Opérateur</button></a>
+
+            <!-- @if (Route::has('register'))
+            <a href="{{ url('/login') }}" > <button class="btn btn-outline-danger me-4" type="button">Opérateur</button></a>
+            @endif !-->
+          @endauth
+          @endif
+      </form>
+      </nav>
+                        
+                        @endauth
+                    @endif
 
 
 

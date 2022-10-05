@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     @vite(['resources/js/app.js'])
+    @vite['resources/css/app.css','resources/css/app.css']
     {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
 
     <!-- Fonts -->

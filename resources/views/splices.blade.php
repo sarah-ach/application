@@ -1,41 +1,255 @@
-
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <title>Laravel 9 Import Export Excel & CSV File to Database Example - LaravelTuts.com</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-     
-<div class="container">
-    <div class="card mt-3 mb-3">
-        <div class="card-header text-center">
-            <h4>Laravel 9 Import Export Excel & CSV File to Database Example - LaravelTuts.com</h4>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>Lear</title>
+
+
+    @extends('layouts.style')
+      <style>
+        .scrollable
+        {
+          height:500px;
+          overflow:scroll;
+        }
+
+    
+      </style>
+
+    </head>
+    <body>
+  <div class="container-fluid">
+    <!-- navigation bar !-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="{{ url('/') }}"><img class="img-fluid" src="{{asset('img/img1.jpg')}}" alt="..."  width="200" height="100"/></a>
+                
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-4 mb-lg-0">
+                    @if (Route::has('login'))
+          
+                   @auth
+
+                        <li class="nav-item"> <a class="nav-link active" aria-current="page" href="/home">Importer</a></li>
+                    <li class="nav-item"> <a class="nav-link " href="/circuit">Vérification Circuit</a></li>
+                    <li class="nav-item"> <a class="nav-link " href="/exporter">Exporter</a></li>
+                    <li class="nav-item"> <a class="nav-link " href="/ajouter">Ajouter Opérateur</a></li>
+                    @else
+                        <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Admin</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Operator</a></li>
+                        @endauth
+                    @endif
+                    </ul>
+
+                    <ul class="navbar-nav ms-auto">
+                         <!-- Authentication Links -->
+                        @guest
+                            @if (Route::has('login'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                </li>
+                            @endif
+
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }}
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                        @endguest
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+ <!--content page !-->
+        
+
+ <div class="row mt-4 col-md-12">
+  <div class="col-md-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-sm-flex justify-content-between align-items-center mb-4">
+          <h2 class="card-title mb-0">Importation de données</h2>
+          <div class="wrapper d-flex">
+            <div class="d-flex align-items-center mr-3">
+              <span class="dot-indicator bg-success"></span>
+              <p class="mb-0 ml-2 text-muted">Product</p>
+            </div>
+            <div class="d-flex align-items-center">
+              <span class="dot-indicator bg-primary"></span>
+              <p class="mb-0 ml-2 text-muted">Resources</p>
+            </div>
+          </div>
         </div>
-        <div class="card-body">
+        <div class="chart-container">
+          <canvas id="dashboard-area-chart" height="10"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+       <div class="row mt-2 col-md-12">
+
+       <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card  mt-2 col-md-12">
+    <div class="card card-statistics">
+      <div class="card-body">
+        <div class="d-flex flex-md-column flex-xl-row flex-wrap justify-content-between align-items-md-center justify-content-xl-between">
+          <div class="float-left">
+            <i class="mdi mdi-receipt text-warning icon-lg"></i>
+          </div>
+         
+            <p class="mb-0 text-left">La dérnier mis à jour</p>
+            <div class="fluid-container">
+                       
+            <i class="fas fa-calendar input-prefix" style="color:red">{{$Ldate=date('Y-m-d');}}</i>
+
+            </div>
+          
+          <div class="float-right">
+            <p class="mb-0 text-right">Numéro de Post</p>
+            <div class="fluid-container">
+                       
+            <h3 class="font-weight-medium text-right mb-0">POST 01</h3>
+
+            
+            </div>
+          </div>
+        </div>
+        <p class="text-muted mt-3 mb-0 text-left text-md-center text-xl-left">
+          <!-- <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Product-wise sales </p> -->
+      </div>
+    </div>
+  </div> 
+  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card  mt-2 col-md-12">
+    <div class="card card-statistics">
+      <div class="card-body">
+        <div class="d-flex flex-md-column flex-xl-row flex-wrap justify-content-between align-items-md-center justify-content-xl-between">
+          <div class="float-left">
+            <i class="mdi mdi-receipt text-warning icon-lg"></i>
+          </div>
+          <div class="float-right">
+            <p class="mb-0 text-right">Séléctioner le type de fichier</p>
+            <div class="fluid-container">
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    Type
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="/home">Circuit</a></li>
+                    <li><a class="dropdown-item" href="/splices">Splice</a></li>
+                    
+                
+
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="text-muted mt-3 mb-0 text-left text-md-center text-xl-left">
+          <!-- <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Product-wise sales </p> -->
+      </div>
+    </div>
+  </div> 
+  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card mt-2 col-md-12">
+    <div class="card card-statistics">
+      <div class="card-body">
+        <div class="d-flex flex-md-column flex-xl-row flex-wrap justify-content-between align-items-md-center justify-content-xl-between">
+         
+          <div class="float-right">
+            
+            <div class="fluid-container">
+              <!-- <h3 class="font-weight-medium text-right mb-0">5693</h3> -->
+              <form action="{{ route('splices.import') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="file" name="file" class="form-control"><br>
+                <button class="btn btn-warning btn-rounded ">Importer</button>
+                <br>
+                
+              
+            </form>
+             
+            </div>
+          </div>
+        </div>
+        <p class="text-muted mt-3 mb-0 text-left text-md-center text-xl-left">
+          <!-- <i class="mdi mdi-calendar mr-1" aria-hidden="true"></i> Weekly Sales </p> -->
+          
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card mt-2 col-md-12">
+    <div class="card card-statistics">
+      <div class="card-body">
+        <div class="d-flex flex-md-column flex-xl-row flex-wrap justify-content-between align-items-md-center justify-content-xl-between">
+          <div class="float-left">
+            <i class="mdi mdi-account-box-multiple text-info icon-lg"></i>
+          </div>
+          <div class="float-left">
+          <p class="mb-0 text-left">Choisir l'action</p>
+            <div class="fluid-container btn-block">
             <form action="{{ route('splices.import') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <input type="file" name="file" class="form-control">
-                <br>
-                <button class="btn btn-primary">Import User Data</button>
+                
+                  &nbsp;&nbsp;&nbsp;
+                 <a class="btn btn-success float-end btn-rounded" href="{{ route('splices.export') }}">Exporter</a>
+                 <a class="btn btn-danger btn-rounded show-alert-delete-box" href="{{ route('splices.delete') }}" onclick="return confirm('are you sure you want to delete all records?');">Supprimer</a> &nbsp;&nbsp;&nbsp;
+                 
             </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="text-muted mt-3 mb-0 text-left text-md-center text-xl-left">
+          <!-- <i class="mdi mdi-reload mr-1" aria-hidden="true"></i> Product-wise sales </p> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+ 
+</div>
+
+
+
   
 
             <div class="container-fluid mt-2 col-md-12">
 <div class="row">
   <div class=" container-fluid col-lg-12 grid-margin">
     <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Orders</h4>
+   
         <div class="scrollable">
+        
           <table class="table table-bordered">
             <thead>
-            <tr>
-                    <th colspan="3">
-                        List Of Users
-                        <a class="btn btn-danger float-end" href="{{ route('splices.export') }}">Export User Data</a>
-                    </th>
-                </tr>
+           
               <tr>
                 <th> Circuit Name</th>
                 <th> CSA</th>
@@ -97,8 +311,7 @@
           </table>
         </div>
       </div>
-    </div>
-  </div>
+
 </div>
 </div>
 
@@ -108,5 +321,37 @@
     </div>
 </div>
      
+<main class="py-4 mt-2 col-md-12">
+            @yield('content')
+        </main>
+        @extends('layouts.footer')
+        </div>
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+<script type="text/javascript">
+    $('.show-alert-delete-box').click(function(event){
+        var form =  $(this).closest("form");
+        var name = $(this).data("name");
+        event.preventDefault();
+        swal({
+            title: "Are you sure you want to delete this record?",
+            text: "If you delete this, it will be gone forever.",
+            icon: "warning",
+            type: "warning",
+            buttons: ["Cancel","Yes!"],
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((willDelete) => {
+            if (willDelete) {
+                form.submit();
+            }
+        });
+    });
+</script>
+
 </body>
 </html>

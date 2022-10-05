@@ -43,4 +43,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    // protected function type()
+    // {
+    //     return new Attribute( get: fn($value)=> ["admin","operateur"][$value],);
+       
+    // }
 }
