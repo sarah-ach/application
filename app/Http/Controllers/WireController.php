@@ -14,4 +14,10 @@ class WireController extends Controller
         $data=wire::all();
         return  view('home',['wire'=>$data]);
     }
+
+     public function scan()
+     {
+         $barcode=request('barcode');
+         return view('wire',compact('barcode'));
+     }
 }

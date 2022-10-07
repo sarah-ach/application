@@ -142,21 +142,27 @@
         <div class="content-wrapper d-flex align-items-center justify-content-center auth theme-one" style="background-image: url({{ url('assets/images/auth/register.jpg') }}); background-size: cover;">
   <div class="row w-100">
     <div class="col-lg-4 mx-auto">
-      <div class="auto-form-wrapper">
-        <form action="#">
+      <div class="auto-form-wrapper" onload="document.pos.barcode.focus();">
+        
           <div class="form-group mt-4">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Circuit">
+            <div class="input-group-append">
+              <!-- <input type="text" class="form-control" placeholder="Circuit"> -->
+              <form class="pos-style" name="pos" action="" method="GET">
+              <input type="text" name="barcode" class="form-control" placeholder="Circuit">
+              </form> <br>
               <div class="input-group-append">
-                <!-- <span class="input-group-text">
-                  <i class="mdi mdi-check-circle-outline"></i>
-                </span> -->
+              <!-- <input type="hidden" name="barcode" class="form-control" value="$barcode"> -->
+              <input input type="hidden" >{{request()->query('barcode')}}</input>
               </div>
             </div>
           </div>
+
+
+
           <div class="form-group mt-4">
             <div class="input-group">
-              <input type="password" class="form-control" placeholder="Emplacement">
+              <!-- <input type="password" class="form-control" placeholder="Emplacement"> -->
+              
               <div class="input-group-append">
                 
               </div>
@@ -215,7 +221,7 @@
               <tr>
                 <td>Jacob</td>
                 <td>Photoshop</td>
-                <td class="text-danger"> 28.76% <i class="mdi mdi-arrow-down"></i>
+                <td class="text-danger"> {{$Ldate=date('Y-m-d');}}<i class="mdi mdi-arrow-down"></i>
                 </td>
                 <!-- <td>
                   <label class="badge badge-danger">Pending</label>
@@ -224,7 +230,7 @@
               <tr>
                 <td>Messsy</td>
                 <td>Flash</td>
-                <td class="text-danger"> 21.06% <i class="mdi mdi-arrow-down"></i>
+                <td class="text-danger"> {{$Ldate=date('Y-m-d');}}<i class="mdi mdi-arrow-down"></i>
                 </td>
                 <!-- <td>
                   <label class="badge badge-warning">In progress</label>
@@ -233,7 +239,7 @@
               <tr>
                 <td>John</td>
                 <td>Premier</td>
-                <td class="text-danger"> 35.00% <i class="mdi mdi-arrow-down"></i>
+                <td class="text-danger"> {{$Ldate=date('Y-m-d');}}<i class="mdi mdi-arrow-down"></i>
                 </td>
                 <!-- <td>
                   <label class="badge badge-info">Fixed</label>
@@ -242,7 +248,7 @@
               <tr>
                 <td>Peter</td>
                 <td>After effects</td>
-                <td class="text-success"> 82.00% <i class="mdi mdi-arrow-up"></i>
+                <td class="text-success"> {{$Ldate=date('Y-m-d');}} <i class="mdi mdi-arrow-up"></i>
                 </td>
                 <!-- <td>
                   <label class="badge badge-success">Completed</label>
@@ -251,7 +257,7 @@
               <tr>
                 <td>Dave</td>
                 <td>53275535</td>
-                <td class="text-success"> 98.05% <i class="mdi mdi-arrow-up"></i>
+                <td class="text-success"> {{$Ldate=date('Y-m-d');}} <i class="mdi mdi-arrow-up"></i>
                 </td>
                 <!-- <td>
                   <label class="badge badge-warning">In progress</label>

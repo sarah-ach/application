@@ -10,6 +10,17 @@
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+      
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+        
+
+
         @extends('layouts.style')
     </head>
     <!-- navigation bar !-->
@@ -118,13 +129,24 @@
             </div>
             <p class="mb-0 text-right">Date:</p>
             <div class="fluid-container">
-              
-             
-              <div  id="date-picker" class="md-form md-outline input-with-post-icon datepicker" style="width:150;" inline="true">
-                <input placeholder="select date" type="text"  class="form-control">
-                <i class="fas fa-calendar input-prefix"></i>
 
-              </div>
+            <form>
+            <div class="row form-group">
+                
+                <div class="col-sm-6">
+                    <div class="input-group date" id="datepicker">
+                        <input type="text" class="form-control">
+                        <span class="input-group-append">
+                            <span class="input-group-text bg-white">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
             </div>
             <div class="form-group d-flex justify-content-center">
             <div class="form-check form-check-flat mt-0">
@@ -133,7 +155,14 @@
             </div>
           </div>
           <div class="form-group">
-             <button class="btn btn-default  submit-btn btn-block">Importer</button> 
+          <form action="{{ route('splices.import') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                
+                  &nbsp;&nbsp;&nbsp;
+                 <a class="btn btn-success float-end btn-rounded" href="{{ route('splices.export') }}">Exporter</a>
+                 <button class="btn btn-dark  submit-btn btn-block">Filtrer</button> 
+            </form>
+             
           </div>
         </div>
       </div>
@@ -146,7 +175,7 @@
         <div class="media">
           <i class="mdi mdi-earth icon-md text-info d-flex align-self-end mr-3"></i>
           <div class="media-body">
-            <p class="card-text">1234</p>
+            <p class="card-text">{{ Auth::user()->username }}</p>
           </div>
         </div>
       </div>
@@ -158,7 +187,7 @@
 </div>
 
 
-  <div class="col-lg-6 grid-margin stretch-card mt-4">
+  <div class="col-lg-12 grid-margin stretch-card mt-4">
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Hoverable Table</h4>
@@ -167,10 +196,11 @@
           <table class="table table-hover">
             <thead>
             <tr>
-                <th>Circuit</th>
-                <th>Emplacement</th>
-                <th>Date</th>
-                <!-- <th>Status</th> -->
+                <th>MatriculeOpérateur</th>
+                <th>WireName</th>
+                <th>Location</th>
+                <th>SerialNumber</th>
+                <th>DateOperation</th> 
               </tr>
             </thead>
             <tbody>
@@ -284,8 +314,15 @@
                         @endauth
                     @endif
 
-
+                    <script type="text/javascript">
+        $(function() {
+            $('#datepicker').datepicker();
+        });
+    </script>
 
 </body>
+
+
+
 
 @extends('layouts.footer')
