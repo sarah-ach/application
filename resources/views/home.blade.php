@@ -139,7 +139,7 @@
             <p class="mb-0 text-right">Numéro de Post</p>
             <div class="fluid-container">
                        
-            <h3 class="font-weight-medium text-right mb-0">POST 01</h3>
+            <h3 class="font-weight-medium text-right mb-0">{{ Auth::user()->post }}</h3>
 
             
             </div>

@@ -12,7 +12,7 @@ class splice extends Model
 
     protected $fillable = [
         'wire_name',
-        'csa',
+        'CSA',
         'color1',
         'color2',
         'length',

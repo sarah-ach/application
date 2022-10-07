@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('splices', function (Blueprint $table) {
             $table->id();
             $table->string('wire_name');
-            $table->integer('CSA');
+            $table->string('CSA');
             $table->string('color1');
             $table->string('color2');
             $table->integer('length');

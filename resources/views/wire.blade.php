@@ -104,7 +104,7 @@
         <div class="media">
           <i class="mdi mdi-earth icon-md text-info d-flex align-self-center mr-3"></i>
           <div class="media-body">
-            <p class="card-text">01</p>
+            <p class="card-text">{{ Auth::user()->post }}</p>
           </div>
         </div>
       </div>
@@ -146,31 +146,30 @@
         
           <div class="form-group mt-4">
             <div class="input-group-append">
-              <!-- <input type="text" class="form-control" placeholder="Circuit"> -->
               <form class="pos-style" name="pos" action="" method="GET">
               <input type="text" name="barcode" class="form-control" placeholder="Circuit">
-              </form> <br>
+              </form> 
               <div class="input-group-append">
-              <!-- <input type="hidden" name="barcode" class="form-control" value="$barcode"> -->
-              <input input type="hidden" >{{request()->query('barcode')}}</input>
-              </div>
-            </div>
-          </div>
-
-
-
-          <div class="form-group mt-4">
-            <div class="input-group">
-              <!-- <input type="password" class="form-control" placeholder="Emplacement"> -->
               
-              <div class="input-group-append">
-                
+              <!-- <input type="hidden" name="barcode" class="form-control" value="$barcode"> -->
+               <input input type="hidden" name="scanlabel">{{request()->query('barcode')}}</input>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="form-group mt-4">
+            <div class="input-group-append">
+              
+              <div class="input-group">
+              <input type="text" name="barcode" class="form-control" placeholder="Location">
               </div>
             </div>
           </div>
           <div class="form-group mt-4">
             <div class="input-group">
-              <input type="password" class="form-control" placeholder="Scan Emplacement">
+              <input type="text" class="form-control" placeholder="Scan Emplacement">
              
             </div>
           </div>
@@ -214,7 +213,7 @@
                 <th>Circuit</th>
                 <th>Emplacement</th>
                 <th>Date</th>
-                <!-- <th>Status</th> -->
+                
               </tr>
             </thead>
             <tbody>
@@ -223,45 +222,35 @@
                 <td>Photoshop</td>
                 <td class="text-danger"> {{$Ldate=date('Y-m-d');}}<i class="mdi mdi-arrow-down"></i>
                 </td>
-                <!-- <td>
-                  <label class="badge badge-danger">Pending</label>
-                </td> -->
+                
               </tr>
               <tr>
                 <td>Messsy</td>
                 <td>Flash</td>
                 <td class="text-danger"> {{$Ldate=date('Y-m-d');}}<i class="mdi mdi-arrow-down"></i>
                 </td>
-                <!-- <td>
-                  <label class="badge badge-warning">In progress</label>
-                </td> -->
+                
               </tr>
               <tr>
                 <td>John</td>
                 <td>Premier</td>
                 <td class="text-danger"> {{$Ldate=date('Y-m-d');}}<i class="mdi mdi-arrow-down"></i>
                 </td>
-                <!-- <td>
-                  <label class="badge badge-info">Fixed</label>
-                </td> -->
+                
               </tr>
               <tr>
                 <td>Peter</td>
                 <td>After effects</td>
                 <td class="text-success"> {{$Ldate=date('Y-m-d');}} <i class="mdi mdi-arrow-up"></i>
                 </td>
-                <!-- <td>
-                  <label class="badge badge-success">Completed</label>
-                </td> -->
+                
               </tr>
               <tr>
                 <td>Dave</td>
                 <td>53275535</td>
                 <td class="text-success"> {{$Ldate=date('Y-m-d');}} <i class="mdi mdi-arrow-up"></i>
                 </td>
-                <!-- <td>
-                  <label class="badge badge-warning">In progress</label>
-                </td> -->
+             
               </tr> 
             </tbody>
           </table>

@@ -102,7 +102,8 @@
         <div class="media">
           <i class="mdi mdi-earth icon-md text-info d-flex align-self-start mr-3"></i>
           <div class="media-body">
-          <h5>Post 01</h5>
+          <h5>{{ Auth::user()->status }}</h5>
+          <h5>{{ Auth::user()->post }}</h5>
           </div>
         </div>
       </div>
@@ -113,18 +114,18 @@
       <div class="card-body">
       <h4 class="card-title">Filtrer</h4>
         <div class="media">
-        <p class="mb-0 text-right">Séléctioner le type de fichier</p>
+        <p class="mb-2 text-right"></p>
             <div class="fluid-container">
               <div class="dropdown">
                 <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    Toutes
+                Choisir le fichier
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li><a class="dropdown-item" href="">Toutes</a></li>
                     <li><a class="dropdown-item" href="">Matricule number</a></li>
                 </ul>
                 
-              </div>
+              </div>&nbsp;&nbsp;
              
             </div>
             <p class="mb-0 text-right">Date:</p>
@@ -133,15 +134,17 @@
             <form>
             <div class="row form-group">
                 
-                <div class="col-sm-6">
+                <div class="col-sm-12">
                     <div class="input-group date" id="datepicker">
                         <input type="text" class="form-control">
                         <span class="input-group-append">
                             <span class="input-group-text bg-white">
-                                <i class="fa fa-calendar"></i>
+                                <i class="fa fa-calendar"></i> 
                             </span>
                         </span>
                     </div>
+                    <label class="form-check-label">
+                 <input type="checkbox" class="form-check-input" checked>Circuit non scannée </label>  
                 </div>
             </div>
         </form>
@@ -150,20 +153,20 @@
             </div>
             <div class="form-group d-flex justify-content-center">
             <div class="form-check form-check-flat mt-0">
-               <label class="form-check-label">
-                 <input type="checkbox" class="form-check-input" checked>Circuit non scannée </label>  
-            </div>
-          </div>
-          <div class="form-group">
+            <div class="form-group">
           <form action="{{ route('splices.import') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 
                   &nbsp;&nbsp;&nbsp;
+                  <button class="btn btn-dark  float-begin btn-rounded">Filtrer</button> <br>
                  <a class="btn btn-success float-end btn-rounded" href="{{ route('splices.export') }}">Exporter</a>
-                 <button class="btn btn-dark  submit-btn btn-block">Filtrer</button> 
+                 
             </form>
              
           </div>
+            </div>
+          </div>
+          
         </div>
       </div>
     </div>

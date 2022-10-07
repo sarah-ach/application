@@ -60,6 +60,11 @@ Route::get('/ajouter', function () {
      Route::get('splices-delete', 'delete')->name('splices.delete');
 });
 
+
+///route for getting workstation of a wire
+Route::get('/circuit',[WireController::class,'index1']);
+
+
 /*------------------------------------------
 --------------------------------------------
 All Normal Users Routes List
