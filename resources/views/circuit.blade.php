@@ -12,6 +12,11 @@
         <link href="css/styles.css" rel="stylesheet" />
         @extends('layouts.style')
     </head>
+
+
+   
+
+
     <!-- navigation bar !-->
     <body>
     @if (Route::has('login'))
@@ -147,12 +152,13 @@
           <div class="form-group mt-4">
             <div class="input-group-append">
               <form class="pos-style" name="pos" action="" method="GET">
-              <input type="text" name="barcode" class="form-control" placeholder="Circuit">
+              <input type="text" name="wire_name" class="form-control" placeholder="Circuit"><br>
+              <input input type="hidden" name="scanlabel">{{request()->query('wire_name')}}</input>
               </form> 
               <div class="input-group-append">
               
               <!-- <input type="hidden" name="barcode" class="form-control" value="$barcode"> -->
-               <input input type="hidden" name="scanlabel">{{request()->query('barcode')}}</input>
+               
               </div>
             </div>
           </div>

@@ -25,6 +25,8 @@
     </head>
 
 
+ 
+
 <body>
 @if (Route::has('login'))
           

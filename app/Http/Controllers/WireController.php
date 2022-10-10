@@ -20,16 +20,55 @@ class WireController extends Controller
         return  view('home',['wire'=>$data]);
     }
 
-  /*   public function index()
+    public function index()
     {
-        store()=DB::table('wires')->where('location',$name)->value($input);
-    } */
+        /*$test=DB::table('wires')->where('location',$name)->value($input);
+        return $test;*/
+
+        /* $barcode=$request->Input('barcode'); */
+
+       // $wire=DB::table('wires')->where('wire_name',Input('barcode'))->value('location');
+
+      /* $name=DB::select("SELECT location from wires where 'wire_name'= ?",['M01CCA67AL.01']);
+       return view('circuit',['wires'=> $name]);*/
+
+
+
+       ///finding location with wire name
+      $getwire_id=DB::select('SELECT location FROM wires where wire_name=?',['M01CCA67AL.01']);
+      
+       //$getwire_id=DB::table('wires')->where('location',$wire_name)->first();
+       return $getwire_id;
+     
+    }
+
+
+
+   /* public function visualiseFile(Request $req,$wireName){
+
+        $name=DB::select("SELECT location from wires where 'wire_name'= ?",['M01CCA67AL.01']);
+         if(!isset($name)){
+             abort(404);
+         }
+         if(Storage::exists($name->path)){
+     
+             return response()->file('wires/'.$name->path);
+         }else{
+             
+             abort(404);
+         }
+ }*/
  
 
-     public function store(Request $request)
+     public function store()
      {
-        $name=$request->input('barcode');
-        return $name;
+        // $name=$request->input('barcode');
+        // return $name;
+        $wirename=wire::where('wire_name',$wire_name)->pluck('location')->first ();
+        return $wirename;
+
+        /*$wire=wire::select("SELECT location from wires where 'wire_name'= ?",['M01CCA67AL.01']);
+        return $wire;*/
      }
 
      public function scan()
@@ -38,6 +77,18 @@ class WireController extends Controller
          return view('wire',compact('barcode'));
      }
 
+     public function find(Request $request)
+     {
+        
+     }
+
+
+     /* public function index(Request $request)
+     
+     {
+        $input=$request->all();
+
+     } */
 
 
      //function find location in data
@@ -45,7 +96,7 @@ class WireController extends Controller
 /*      public function index(Request $request)
      
      {
-        $wire=wire::latest()->pluck('wire_name','workstation');
+        $wire=wire::latest()->pluck('wire_name','location');
         dd($wire->toArray());
 
      } */

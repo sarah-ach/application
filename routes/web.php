@@ -71,9 +71,13 @@ Route::controller(homeController::class)->group(function(){
 
 
 ///route for getting workstation of a wire
-Route::get('/circuit',[WireController::class,'index1']);
+//Route::get('/wires',[WireController::class,'index']);
 
-Route::put('/wires/{wire_name}',[WireController::class,'store']);
+//Route::get('/wires?{wire_name}',[WireController::class,'store']);
+
+//Route::get('/wires?request()->query("wire_name")',[WireController::class,'index']);
+ Route::get('/wires', [App\Http\Controllers\WireController::class, 'index']);
+
 
 /*------------------------------------------
 --------------------------------------------
