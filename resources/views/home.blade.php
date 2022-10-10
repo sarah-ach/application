@@ -42,7 +42,7 @@
                    @auth
 
                         <li class="nav-item"> <a class="nav-link active" aria-current="page" href="/home">Importer</a></li>
-                    <li class="nav-item"> <a class="nav-link " href="/circuit">Vérification Circuit</a></li>
+                    <li class="nav-item"> <a class="nav-link " href="/wires">Vérification Circuit</a></li>
                     <li class="nav-item"> <a class="nav-link " href="/exporter">Exporter</a></li>
                     <li class="nav-item"> <a class="nav-link " href="/ajouter">Ajouter Opérateur</a></li>
                     @else
@@ -162,10 +162,10 @@
             <div class="fluid-container">
               <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    Type
+                    --please select--
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="">Circuit</a></li>
+                    <li><a class="dropdown-item" href="/home">Circuit</a></li>
                     <li><a class="dropdown-item" href="/splices">Splice</a></li>
                     
                 
@@ -189,7 +189,7 @@
             
             <div class="fluid-container">
               <!-- <h3 class="font-weight-medium text-right mb-0">5693</h3> -->
-              <form action="{{ route('splices.import') }}" method="POST" enctype="multipart/form-data">
+              <form action="{{ route('wires.import') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="file" name="file" class="form-control"><br>
                 <button class="btn btn-warning btn-rounded ">Importer</button>
@@ -217,12 +217,12 @@
           <div class="float-left">
           <p class="mb-0 text-left">Choisir l'action</p>
             <div class="fluid-container btn-block">
-            <form action="{{ route('splices.import') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('wires.import') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 
                   &nbsp;&nbsp;&nbsp;
-                 <a class="btn btn-success float-end btn-rounded" href="{{ route('splices.export') }}">Exporter</a>
-                 <a class="btn btn-danger btn-rounded" href="{{ route('splices.delete') }}">Supprimer</a> &nbsp;&nbsp;&nbsp;
+                 <a class="btn btn-success float-end btn-rounded" href="{{ route('wires.export') }}">Exporter</a>
+                 <a class="btn btn-danger btn-rounded" href="{{ route('wires.delete') }}">Supprimer</a> &nbsp;&nbsp;&nbsp;
             </form>
 
               </div>

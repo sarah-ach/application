@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WireController; 
 use App\Http\Controllers\SpliceController;
-
+use App\Http\Controllers\HomeController;
+use Illuminate\http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,8 +32,8 @@ Route::get('/dashbord', function () {
     return view('layouts/master');
 });
 
-Route::get('/circuit', function () {
-    return view('wire');
+Route::get('/wires', function () {
+    return view('circuit');
 });
 
 Route::get('/exporter', function () {
@@ -61,9 +62,18 @@ Route::get('/ajouter', function () {
 });
 
 
+Route::controller(homeController::class)->group(function(){
+    Route::get('wire', 'index');
+    Route::get('wires-export', 'export')->name('wires.export');
+    Route::post('wires-import', 'import')->name('wires.import');
+    Route::get('wires-delete', 'delete')->name('wires.delete');
+});
+
+
 ///route for getting workstation of a wire
 Route::get('/circuit',[WireController::class,'index1']);
 
+Route::put('/wires/{wire_name}',[WireController::class,'store']);
 
 /*------------------------------------------
 --------------------------------------------

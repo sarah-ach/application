@@ -30,7 +30,7 @@
                    @auth
 
                         <li class="nav-item"> <a class="nav-link " aria-current="page" href="/home">Importer</a></li>
-                    <li class="nav-item"> <a class="nav-link active" href="/circuit">Vérification Circuit</a></li>
+                    <li class="nav-item"> <a class="nav-link active" href="/wires">Vérification Circuit</a></li>
                     <li class="nav-item"> <a class="nav-link " href="/exporter">Exporter</a></li>
                     <li class="nav-item"> <a class="nav-link " href="/ajouter">Ajouter Opérateur</a></li>
                     @else
@@ -117,7 +117,7 @@
         <div class="media">
           <i class="mdi mdi-earth icon-md text-info d-flex align-self-end mr-3"></i>
           <div class="media-body">
-            <p class="card-text">1234</p>
+            <p class="card-text">{{ Auth::user()->username }}</p>
           </div>
         </div>
       </div>

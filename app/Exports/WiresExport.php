@@ -2,20 +2,19 @@
 
 namespace App\Exports;
 
-use App\Models\splice;
+use App\Models\wire;
 use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class SplicesExport implements FromCollection,WithHeadings
+class WiresExport implements FromCollection
 {
     /**
     * @return \Illuminate\Support\Collection
     */
     public function collection()
     {
-        return splice::select("wire_name", "CSA", "color1","color2","length","terminal_A","seal_A","joint_to_A","cavity_A","terminal_B","seal_B","joint_to_B","cavity_B","bundle_size","kanban_location","workstation","location","module")->get();
+        return wire::select("wire_name", "CSA", "color1","color2","length","terminal_A","seal_A","joint_to_A","cavity_A","terminal_B","seal_B","joint_to_B","cavity_B","bundle_size","kanban_location","workstation","location","module")->get();
     }
- 
+
 
     public function headings(): array
     {
@@ -23,8 +22,3 @@ class SplicesExport implements FromCollection,WithHeadings
     }
     
 }
-
-
-
-
-

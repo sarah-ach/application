@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('wires', function (Blueprint $table) {
             $table->id();
             $table->string('wire_name');
-            $table->double('CSA');
+            $table->string('CSA');
             $table->string('color1');
             $table->string('color2');
             $table->integer('length');
@@ -33,7 +33,7 @@ return new class extends Migration
             $table->string('workstation');
             $table->string('location');
             $table->string('module');
-            $table->timestamp('email_verified_at')->nullable();
+            $table->timestamps();
         });
     }
 
