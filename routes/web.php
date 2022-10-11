@@ -27,6 +27,16 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+///admin section
+Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
+    //Route::get('/ajouter',[RegisterController::class,'validator'])->name('admin.ajouter');
+
+   /*  Route::get('/ajouter', function () {
+        return view('admin.ajouter');
+    });  */
+    
+});
+
 
 Route::get('/dashbord', function () {
     return view('layouts/master');
@@ -37,7 +47,7 @@ Route::get('/wires', function () {
 });
 
 Route::get('/exporter', function () {
-    return view('exporter');
+    return view('admin.exporter');
 });
 
 Route::get('/splices', function () {
@@ -46,11 +56,11 @@ Route::get('/splices', function () {
 
 
 
- Route::get('/home',[App\Http\Controllers\WireController::class, 'show']);
+Route::get('/home',[App\Http\Controllers\WireController::class, 'show']);
 
-Route::get('/ajouter', function () {
-    return view('ajouter');
-});
+ Route::get('/ajouter', function () {
+    return view('admin.ajouter');
+});  
 
 // Route::get('splices',[SpliceController::class,'index']);
 
@@ -76,7 +86,9 @@ Route::controller(homeController::class)->group(function(){
 //Route::get('/wires?{wire_name}',[WireController::class,'store']);
 
 //Route::get('/wires?request()->query("wire_name")',[WireController::class,'index']);
- Route::get('/wires', [App\Http\Controllers\WireController::class, 'index']);
+ //Route::get('/wires', [App\Http\Controllers\WireController::class, 'index']);
+
+ Route::get('{location}',[App\Http\Controllers\WireController::class, 'index']);
 
 
 /*------------------------------------------

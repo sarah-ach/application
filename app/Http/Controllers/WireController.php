@@ -35,10 +35,10 @@ class WireController extends Controller
 
 
        ///finding location with wire name
-      $getwire_id=DB::select('SELECT location FROM wires where wire_name=?',['M01CCA67AL.01']);
+     // $getwire_id=DB::select('SELECT location FROM wires where wire_name=?',['M01CCA67AL.01']);
       
        //$getwire_id=DB::table('wires')->where('location',$wire_name)->first();
-       return $getwire_id;
+       //return $getwire_id;
      
     }
 
