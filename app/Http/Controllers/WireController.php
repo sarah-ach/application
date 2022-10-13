@@ -17,7 +17,7 @@ class WireController extends Controller
     function show()
     {
         $data=wire::all();
-        return  view('home',['wire'=>$data]);
+        return  view('admin.home',['wire'=>$data]);
     }
 
     public function index()

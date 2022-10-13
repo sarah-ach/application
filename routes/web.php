@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WireController; 
 use App\Http\Controllers\SpliceController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\http\Request;
 
 /*
@@ -25,18 +26,35 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 
 ///admin section
-Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
-    //Route::get('/ajouter',[RegisterController::class,'validator'])->name('admin.ajouter');
+// Route::prefix('administrator')->middleware(['auth','isAdmin'])->group(function(){
+//    Route::get('/ajouter',[RegisterController::class,'index'])->name('admin.ajouter');
 
-   /*  Route::get('/ajouter', function () {
-        return view('admin.ajouter');
-    });  */
+//    /*  Route::get('/ajouter', function () {
+//         return view('admin.ajouter');
+//     });  */
     
-});
+// });
 
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/ajouter', function () {
+        return view('admin.ajouter');
+    });
+
+    Route::get('/exporter', function () {
+        return view('admin.exporter');
+    });
+
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.home');
+    Route::get('/home',[App\Http\Controllers\WireController::class, 'show']);
+
+    Route::get('/splices', function () {
+        return view('admin.splices');
+    });
+});
 
 Route::get('/dashbord', function () {
     return view('layouts/master');
@@ -46,9 +64,7 @@ Route::get('/wires', function () {
     return view('circuit');
 });
 
-Route::get('/exporter', function () {
-    return view('admin.exporter');
-});
+
 
 Route::get('/splices', function () {
     return view('splices');
@@ -56,11 +72,11 @@ Route::get('/splices', function () {
 
 
 
-Route::get('/home',[App\Http\Controllers\WireController::class, 'show']);
 
- Route::get('/ajouter', function () {
+
+ /* Route::get('/ajouter', function () {
     return view('admin.ajouter');
-});  
+});  */ 
 
 // Route::get('splices',[SpliceController::class,'index']);
 

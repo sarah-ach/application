@@ -1,17 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Lear</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
-        @extends('layouts.style')
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>Lear</title>
+
+
+    @extends('layouts.style')
       <style>
         .scrollable
         {
@@ -23,14 +22,7 @@
       </style>
 
     </head>
-
-
- 
-
-<body>
-@if (Route::has('login'))
-          
-          @auth   
+    <body>
   <div class="container-fluid">
     <!-- navigation bar !-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -43,10 +35,10 @@
           
                    @auth
 
-                        <li class="nav-item"> <a class="nav-link active" aria-current="page" href="/home">Importer</a></li>
+                        <li class="nav-item"> <a class="nav-link active" aria-current="page" href="/admin/home">Importer</a></li>
                     <li class="nav-item"> <a class="nav-link " href="/wires">Vérification Circuit</a></li>
-                    <li class="nav-item"> <a class="nav-link " href="/exporter">Exporter</a></li>
-                    <li class="nav-item"> <a class="nav-link " href="/ajouter">Ajouter Opérateur</a></li>
+                    <li class="nav-item"> <a class="nav-link " href="/admin/exporter">Exporter</a></li>
+                    <li class="nav-item"> <a class="nav-link " href="/admin/ajouter">Ajouter Opérateur</a></li>
                     @else
                         <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Admin</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Operator</a></li>
@@ -65,7 +57,7 @@
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Ajouter') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
@@ -92,10 +84,11 @@
             </div>
         </nav>
 
-        <!--content page !-->
 
+ <!--content page !-->
+        
 
-<div class="row mt-4 col-md-12">
+ <div class="row mt-4 col-md-12">
   <div class="col-md-12 grid-margin">
     <div class="card">
       <div class="card-body">
@@ -120,7 +113,8 @@
   </div>
 </div>
 
-<div class="row mt-2 col-md-12">
+
+       <div class="row mt-2 col-md-12">
 
        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card  mt-2 col-md-12">
     <div class="card card-statistics">
@@ -164,11 +158,11 @@
             <div class="fluid-container">
               <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    --please select--
+                    Type
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="/home">Circuit</a></li>
-                    <li><a class="dropdown-item" href="/splices">Splice</a></li>
+                    <li><a class="dropdown-item" href="/admin/home">Circuit</a></li>
+                    <li><a class="dropdown-item" href="/admin/splices">Splice</a></li>
                     
                 
 
@@ -191,7 +185,7 @@
             
             <div class="fluid-container">
               <!-- <h3 class="font-weight-medium text-right mb-0">5693</h3> -->
-              <form action="{{ route('wires.import') }}" method="POST" enctype="multipart/form-data">
+              <form action="{{ route('splices.import') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="file" name="file" class="form-control"><br>
                 <button class="btn btn-warning btn-rounded ">Importer</button>
@@ -219,12 +213,13 @@
           <div class="float-left">
           <p class="mb-0 text-left">Choisir l'action</p>
             <div class="fluid-container btn-block">
-            <form action="{{ route('wires.import') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('splices.import') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 
                   &nbsp;&nbsp;&nbsp;
-                 <a class="btn btn-success float-end btn-rounded" href="{{ route('wires.export') }}">Exporter</a>
-                 <a class="btn btn-danger btn-rounded" href="{{ route('wires.delete') }}">Supprimer</a> &nbsp;&nbsp;&nbsp;
+                 <a class="btn btn-success float-end btn-rounded" href="{{ route('splices.export') }}">Exporter</a>
+                 <a class="btn btn-danger btn-rounded show-alert-delete-box" href="{{ route('splices.delete') }}" onclick="return confirm('are you sure you want to delete all records?');">Supprimer</a> &nbsp;&nbsp;&nbsp;
+                 
             </form>
 
               </div>
@@ -243,20 +238,18 @@
 
 
 
+  
 
-
-
-
-<!-- table content!-->
-<div class="container-fluid mt-2 col-md-12">
+            <div class="container-fluid mt-2 col-md-12">
 <div class="row">
   <div class=" container-fluid col-lg-12 grid-margin">
     <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Orders</h4>
+   
         <div class="scrollable">
+        
           <table class="table table-bordered">
             <thead>
+           
               <tr>
                 <th> Circuit Name</th>
                 <th> CSA</th>
@@ -278,37 +271,37 @@
                 <th> Module </th>
               </tr>
             </thead>
-            @foreach($wire as $wr)
+            @foreach($splices as $splice)
             <tbody>
               <tr>
                 
-                <td> {{$wr['wire_name']}}  </td>
+                <td> {{ $splice->wire_name }}  </td>
                 <td>
-                {{$wr['CSA']}} 
+                {{ $splice->CSA }}
                 </td>
-                <td> {{$wr['color1']}} </td>
-                <td class="text-danger"> {{$wr['color2']}}  <i class="mdi mdi-arrow-down"></i>
+                <td> {{ $splice->color1 }} </td>
+                <td class="text-danger"> {{ $splice->color2 }}  <i class="mdi mdi-arrow-down"></i>
                 </td>
-                <td> {{$wr['length']}}  </td>
-                <td class="font-weight-medium"> {{$wr['terminal_A']}} </td>
-                <td> {{$wr['seal_A']}} </td>
+                <td> {{ $splice->length }}  </td>
+                <td class="font-weight-medium">{{ $splice->terminal_A }} </td>
+                <td> {{ $splice->seal_A }} </td>
                 <td>
-                {{$wr['joint_to_A']}} 
+                {{ $splice->joint_to_A }}
                 </td>
-                <td> {{$wr['cavity_A']}}  </td>
-                <td class="text-danger"> {{$wr['terminal_B']}}  <i class="mdi mdi-arrow-down"></i>
+                <td> {{ $splice->cavity_A }}  </td>
+                <td class="text-danger"> {{ $splice->terminal_B }}  <i class="mdi mdi-arrow-down"></i>
                 </td>
-                <td> {{$wr['seal_B']}}  </td>
-                <td class="font-weight-medium"> {{$wr['joint_to_B']}}  </td>
-                <td> {{$wr['cavity_B']}} </td>
+                <td> {{ $splice->seal_B }}  </td>
+                <td class="font-weight-medium"> {{ $splice->joint_to_B }} </td>
+                <td> {{ $splice->cavity_B }} </td>
                 <td>
-                {{$wr['bundle_size']}} 
+                {{ $splice->bundle_size }}
                 </td>
-                <td> {{$wr['kanban_location']}}  </td>
-                <td class="text-danger"> {{$wr['workstation']}} <i class="mdi mdi-arrow-down"></i>
+                <td>{{ $splice->kanban_location }}</td>
+                <td class="text-danger"> {{ $splice->workstation }}<i class="mdi mdi-arrow-down"></i>
                 </td>
-                <td class="font-weight-medium"> {{$wr['location']}} </td>
-                <td> {{$wr['module']}}  </td>
+                <td class="font-weight-medium">{{ $splice->location }} </td>
+                <td> {{ $splice->module }} </td>
               </tr>
               <tr>
                
@@ -318,74 +311,24 @@
           </table>
         </div>
       </div>
+
+</div>
+</div>
+
+
+  
+        </div>
     </div>
-  </div>
 </div>
-</div>
-@else
-<!-- Responsive navbar-->
-<div class="container-fluid">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" href="#!">Verification App</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    @if (Route::has('login'))
-          
-                   @auth
-
-                        <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Dashbord</a></li>
-                    @else
-                        <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Admin</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Operator</a></li>
-                        @endauth
-                    @endif
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- Header - set the background image for the header in the line below-->
-            <div class="text-center my-5">
-                <img class="img-fluid" src="{{asset('img/img1.jpg')}}" alt="..." />
-                <h1 class="text-white fs-3 fw-bolder">Full Width Pics</h1>
-                <p class="text-white-50 mb-0">Landing Page Template</p>
-            </div>
-        <!-- </header> -->
-        
-       
-
-<div>
-
-      <nav class="navbar navbar-white bg-white">
-      <form class="container-fluid justify-content-start">
-          @if (Route::has('login'))
-          
-          @auth
-
-          <a href="{{ url('/login') }}" ><button class="btn btn-default btn-lg me-4 position-absolute top-50 start-50" type="button">Dashbord</button></a>
-          @else
-          <a href="{{ url('/login') }}" ><button type="button" class="btn btn-default btn-lg me-4 position-absolute top-50 start-50"> Admin</button></a>
-          <!--<a href="{{ url('/login') }}" > <button class="btn btn-outline-danger me-4" type="button">Admin</button></a>!-->
-          <a href="{{ url('/login') }}" > <button type="button" class="btn btn-default btn-lg me-4 position-absolute buttom-50 end-50"> Opérateur</button></a>
-
-            <!-- @if (Route::has('register'))
-            <a href="{{ url('/login') }}" > <button class="btn btn-outline-danger me-4" type="button">Opérateur</button></a>
-            @endif !-->
-          @endauth
-          @endif
-      </form>
-      </nav>
-                        
-                        @endauth
-                    @endif
-
-
-
-        <main class="py-4 mt-2 col-md-12">
+     
+<main class="py-4 mt-2 col-md-12">
             @yield('content')
         </main>
         @extends('layouts.footer')
         </div>
+
+
+       
+
 </body>
 </html>

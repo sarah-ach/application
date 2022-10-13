@@ -2,8 +2,11 @@
 
 namespace App\Http\Middleware;
 
+
 use Closure;
 use Illuminate\Http\Request;
+use Auth;
+
 
 class AdminMiddleware
 {
@@ -18,7 +21,7 @@ class AdminMiddleware
     {
         if(Auth::check())
         {
-            /
+            
             if(Auth::user()->role=='admin')
             {
                 return $next($request);

@@ -56,6 +56,7 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:3', 'confirmed'],
             'post' => ['required', 'string', 'max:255'],
             'status' => ['required', 'in:admin,operateur'],
+            'role' => ['required', 'string', 'max:255'],
         ]);
     }
 
@@ -74,6 +75,12 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'post' => $data['post'],
             'status' => $data['status'],
+            'role' => $data['role'],
         ]);
+    }
+
+    public function index()
+    {
+        return view('admin.ajouter');
     }
 }

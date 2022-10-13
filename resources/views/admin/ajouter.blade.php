@@ -122,9 +122,9 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button class="btn btn-default btn-lg btn-block" type="submit">
+                            <a href="{{ url('/admin/home') }}" ><button class="btn btn-default btn-lg btn-block" type="submit">
                                     {{ __('Register') }}
-                                </button>
+                                </button></a>
                             </div>
                         </div>
                     </form>

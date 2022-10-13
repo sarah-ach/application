@@ -28,7 +28,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('admin.home');
         $date=date('Y-m-d');
          $newDate=Carbon::createFromFormat('Y-m-d',$date)->format('Y-m-d');
          dd($todayDate); 
