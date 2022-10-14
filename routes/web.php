@@ -5,6 +5,9 @@ use App\Http\Controllers\WireController;
 use App\Http\Controllers\SpliceController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\AjouterController;
+//use App\Http\Controllers\Admin\DashboardController;
+
 use Illuminate\http\Request;
 
 /*
@@ -44,17 +47,27 @@ Route::group(['prefix' => 'admin'], function () {
         return view('admin.ajouter');
     });
 
+   
+
     Route::get('/exporter', function () {
         return view('admin.exporter');
     });
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.home');
     Route::get('/home',[App\Http\Controllers\WireController::class, 'show']);
+    
 
     Route::get('/splices', function () {
         return view('admin.splices');
     });
+
+ 
+    Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->middleware('role:admin');
+Route::get('/dashboard',[App\Http\Controllers\Admin\DashboardController::class, 'show']);
+
 });
+
+Route::get('admin/splices',[App\Http\Controllers\SpliceController::class,'index'])->name('admin.splices');
 
 Route::get('/dashbord', function () {
     return view('layouts/master');
@@ -78,7 +91,7 @@ Route::get('/splices', function () {
     return view('admin.ajouter');
 });  */ 
 
-// Route::get('splices',[SpliceController::class,'index']);
+ 
 
  Route::controller(SpliceController::class)->group(function(){
      Route::get('splices', 'index');
@@ -94,6 +107,18 @@ Route::controller(homeController::class)->group(function(){
     Route::post('wires-import', 'import')->name('wires.import');
     Route::get('wires-delete', 'delete')->name('wires.delete');
 });
+
+
+//test d'aithentification admin/oper
+
+
+Route::get('/operateur/dashboard', [App\Http\Controllers\Operateur\DashboardController::class, 'index'])->middleware('role:operateur');
+// Route::get('/admin/ajouter', [App\Http\Controllers\Auth\AjouterController::class, 'index'])->middleware('role:admin');
+//Route::post('/admin/ajouter', [App\Http\Controllers\Auth\AjouterController::class, 'index']);
+   
+
+
+
 
 
 ///route for getting workstation of a wire

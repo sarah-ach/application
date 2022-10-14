@@ -102,7 +102,7 @@
         <div class="media">
           <i class="mdi mdi-earth icon-md text-info d-flex align-self-start mr-3"></i>
           <div class="media-body">
-          <h5>{{ Auth::user()->status }}</h5>
+          <h5>{{ Auth::user()->role }}</h5>
           <h5>{{ Auth::user()->post }}</h5>
           </div>
         </div>

@@ -19,7 +19,7 @@ class SpliceController extends Controller
     {
         $splices = splice::get();
   
-        return view('splices', compact('splices'));
+        return view('admin.splices', compact('splices'));
     }
         
     /**

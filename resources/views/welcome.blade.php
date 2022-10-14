@@ -25,7 +25,7 @@
           
                    @auth
 
-                        <li class="nav-item"><a class="nav-link" href="{{ url('/admin/home') }}">Dashbord</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Dashbord</a></li>
                     @else
                         <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Admin</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Operator</a></li>
@@ -53,7 +53,7 @@
           
           @auth
 
-          <a href="{{ url('/admin/home') }}" ><button class="btn btn-default btn-lg me-4 position-absolute top-50 start-50" type="button">Dashbord</button></a>
+          <a href="{{ url('/login') }}" ><button class="btn btn-default btn-lg me-4 position-absolute top-50 start-50" type="button">Dashbord</button></a>
           @else
           <a href="{{ url('/login') }}" ><button type="button" class="btn btn-default btn-lg me-4 position-absolute top-50 start-50"> Admin</button></a>
           <!--<a href="{{ url('/login') }}" > <button class="btn btn-outline-danger me-4" type="button">Admin</button></a>!-->

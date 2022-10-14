@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->string('post');
-            $table->string('role')->default('operateur');
-            $table->string('status');
+           // $table->string('role')->default('operateur');
+            $table->string('role');
             $table->rememberToken();
             $table->timestamps();
         });

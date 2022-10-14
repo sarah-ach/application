@@ -17,9 +17,9 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
+         User::create([
             'name' => 'the admin user',
-        'matricule' => '7895',
+        'username' => '7895',
         'password' => Hash::make('password'),
         'post'=>'POST-06',
         'status'=>'admin',
@@ -28,9 +28,18 @@ class UsersTableSeeder extends Seeder
   
         User::create([
             'name' => 'the operateur user',
-            'matricule' => '54567',
+            'username' => '54567',
             'password' => Hash::make('password'),
             'post'=>'POST-07',
+            'status'=>'operateur',
+            'role' => 'operateur',
+        ]); 
+
+        User::create([
+            'name' => 'the operateur user',
+            'username' => '123',
+            'password' => Hash::make('123'),
+            'post'=>'POST-08',
             'status'=>'operateur',
             'role' => 'operateur',
         ]);

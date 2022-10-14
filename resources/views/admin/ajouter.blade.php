@@ -89,22 +89,37 @@
                         </div>
 
 
+                       <!--  <div class="row mb-3">
+                            <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="role" type="text" class="form-control @error('role') is-invalid @enderror" name="role" value="{{ old('role') }}" required autocomplete="post" autofocus>
+
+                                @error('role')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div> -->
+
+
 
                         <div class="row mb-3">
-                            <label for="status" class="col-md-4 col-form-label text-md-end">{{ __('Status') }}</label>
+                            <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
 
                             <div class="col-md-6">
 
                                 <div class="form-check form-check-flat mt-0">
                                 <div class="form-check">
 
-                                <input id="flexRadioDefault1" type="radio" class="form-check-input" name="status" value="admin">
+                                <input id="flexRadioDefault1" type="radio" class="form-check-input" name="role" value="admin">
                                 <label class="form-check-label" for="flexRadioDefault1"> Admin </label>
                                 </div>
 
                                 <div class="form-check">
 
-                                <input id="flexRadioDefault2" type="radio" class="form-check-input" name="status" value="operateur">
+                                <input id="flexRadioDefault2" type="radio" class="form-check-input" name="role" value="operateur">
                                 <label class="form-check-label" for="flexRadioDefault2"> Opérateur </label>
                                 </div>
 
@@ -122,11 +137,14 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                            <a href="{{ url('/admin/home') }}" ><button class="btn btn-default btn-lg btn-block" type="submit">
+                            <a href="{{ url('/admin/dashboard') }}" ><button class="btn btn-default btn-lg btn-block" type="submit">
                                     {{ __('Register') }}
                                 </button></a>
                             </div>
                         </div>
+                        @foreach($errors->all() as $error)
+                        {{ $error  }}
+                        @endforeach
                     </form>
                 </div>
             </div>
