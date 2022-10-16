@@ -73,10 +73,20 @@ Route::get('/dashbord', function () {
     return view('layouts/master');
 });
 
-Route::get('/wires', function () {
+/* Route::get('/wires', function () {
     return view('circuit');
-});
+}); */
 
+//Route::get('/wires', [App\Http\Controllers\WireController::class, 'index']); 
+
+
+
+Route::get('/wires',[App\Http\Controllers\WireController::class,'search']);
+
+/* Route::get(
+    '/wires',
+    [App\Http\Controllers\WireController::class,'search']
+)->name('circuit'); */
 
 
 Route::get('/splices', function () {

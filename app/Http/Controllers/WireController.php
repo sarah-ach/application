@@ -20,6 +20,8 @@ class WireController extends Controller
         return  view('admin.home',['wire'=>$data]);
     }
 
+    
+
     public function index()
     {
         /*$test=DB::table('wires')->where('location',$name)->value($input);
@@ -39,8 +41,11 @@ class WireController extends Controller
       
        //$getwire_id=DB::table('wires')->where('location',$wire_name)->first();
        //return $getwire_id;
+
+
+       return view('circuit');
      
-    }
+    } 
 
 
 
@@ -106,4 +111,43 @@ class WireController extends Controller
     //    {
     //     return DB::select('select workstation from wires');
     //    }
+
+
+    public function search(Request $request)
+    {
+        return view('circuit');
+
+        if($request->ajax())
+        {
+
+            $output='';
+            $wires=wire::where('wire_name','LIKE','%'.$request->search.'%' )->get();
+
+            if($wires)
+            {
+                foreach($wires as $wire)
+                {
+                    $output.='
+                  <div class="form-group mt-4">
+            <div class="input-group-append">
+              <form class="pos-style" name="pos" action="" method="GET">
+              <input type="text"  name="wire_name" class="form-control" placeholder="Circuit"><br>
+              <input  type="hidden" id="search" name="search">'.request()->query('wire_name').'</input>
+              <label for="search">'.$wire->location.'</label>
+              </form> 
+              
+            </div>
+          </div>
+                  
+                  
+                  '; 
+                }
+                
+                return response()->json($output);
+            }
+        } 
+
+       
+        
+    }
 }

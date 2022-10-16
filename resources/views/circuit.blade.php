@@ -10,15 +10,22 @@
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
         @extends('layouts.style')
+        
     </head>
 
 
    
-
+   
 
     <!-- navigation bar !-->
     <body>
+
+    
+
     @if (Route::has('login'))
           
           @auth  
@@ -152,14 +159,11 @@
           <div class="form-group mt-4">
             <div class="input-group-append">
               <form class="pos-style" name="pos" action="" method="GET">
-              <input type="text" name="wire_name" class="form-control" placeholder="Circuit"><br>
-              <input input type="hidden" name="scanlabel">{{request()->query('wire_name')}}</input>
+              <input type="text"  name="wire_name" class="form-control" placeholder="Circuit"><br>
+              <input  type="hidden" id="search" name="search">{{request()->query('wire_name')}}</input>
+              <label for="search" > </label>
               </form> 
-              <div class="input-group-append">
               
-              <!-- <input type="hidden" name="barcode" class="form-control" value="$barcode"> -->
-               
-              </div>
             </div>
           </div>
 
@@ -169,7 +173,7 @@
             <div class="input-group-append">
               
               <div class="input-group">
-              <input type="text" name="barcode" class="form-control" placeholder="Location">
+             
               </div>
             </div>
           </div>
@@ -326,6 +330,37 @@
                     @endif
 
 
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    <script type="text/javascript">
+    $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+    </script>
+
+<script>
+    $(document).ready(function () {
+        $('#search').on('keyup', function(){
+            var value = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "/wires",
+                data: {'wires':value},
+                success: function (data) {
+                    //$('.pos-style').html(data);
+                   console.log(data);
+                }
+            }); 
+
+            
+        });
+    });
+</script>
 
   
 </body>
