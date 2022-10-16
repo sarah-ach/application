@@ -131,8 +131,8 @@ class WireController extends Controller
                   <div class="form-group mt-4">
             <div class="input-group-append">
               <form class="pos-style" name="pos" action="" method="GET">
-              <input type="text"  name="wire_name" class="form-control" placeholder="Circuit"><br>
-              <input  type="hidden" id="search" name="search">'.request()->query('wire_name').'</input>
+              <input type="text"  id="search" name="search" class="form-control" placeholder="Circuit"><br>
+              
               <label for="search">'.$wire->location.'</label>
               </form> 
               
