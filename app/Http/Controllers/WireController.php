@@ -115,9 +115,9 @@ class WireController extends Controller
 
     public function search(Request $request)
     {
-        return view('circuit');
+        //return view('circuit');
 
-        if($request->ajax())
+         if($request->ajax())
         {
 
             $output='';
@@ -127,27 +127,22 @@ class WireController extends Controller
             {
                 foreach($wires as $wire)
                 {
-                    $output.='
-                  <div class="form-group mt-4">
-            <div class="input-group-append">
-              <form class="pos-style" name="pos" action="" method="GET">
-              <input type="text"  id="search" name="search" class="form-control" placeholder="Circuit"><br>
-              
-              <label for="search">'.$wire->location.'</label>
-              </form> 
-              
-            </div>
-          </div>
-                  
+                    $output .=
+                    ' <div class="card-body">
+                     
+                      <h5 class="card-title">'.$wire->location.'</h5>
+                     
+                
+                    </div>
                   
                   '; 
                 }
                 
                 return response()->json($output);
             }
-        } 
+        }  
 
-       
+       return view('circuit');
         
     }
 }

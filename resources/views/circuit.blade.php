@@ -18,9 +18,6 @@
     </head>
 
 
-   
-   
-
     <!-- navigation bar !-->
     <body>
 
@@ -89,11 +86,10 @@
                 </div>
             </div>
         </nav>
- 
 
-        <!--content!-->
+<!--content!-->
 
-        <div class="row container-fluid mt-4">
+<div class="row container-fluid mt-4">
   
  
   <div class="col-md-4 grid-margin stretch-card">
@@ -158,16 +154,29 @@
         
           <div class="form-group mt-4">
             <div class="input-group-append">
+              
               <form class="pos-style" name="pos" action="" method="GET">
-              <input type="text"  name="wire_name" class="form-control" placeholder="Circuit"><br>
+              
+            <div class="input-group">
+              <!-- <input type="text"  name="wire_name" class="form-control" placeholder="Circuit"><br> -->
               <!-- <input  type="hidden" id="search" name="search">{{request()->query('wire_name')}}</input> -->
-              <label for="search" > </label>
+              <div class="row justify-content-center">
+       
+              <input type="search" id="search" name="search" class="form-control " placeholder="Circuit" style="width: 16rem;"/>
+                <!-- <button type="button" class="btn btn-outline-primary">search</button> -->
+                <div class="card mycard m-1 p-1" style="width: 16rem;">
+
+              </div>
+
               </form> 
               
+
+              </div>
             </div>
           </div>
 
-
+         
+    </div>
 
           <div class="form-group mt-4">
             <div class="input-group-append">
@@ -331,39 +340,60 @@
                     @endif
 
 
-    <script
-    src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-    crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    
-    <script type="text/javascript">
+
+
+   <!--  <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="input-group">
+                <input type="search" id="search" name="search" class="form-control rounded" placeholder="Search" />
+                <button type="button" class="btn btn-outline-primary">search</button>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card mycard m-2 p-2" style="width: 18rem;">
+
+            </div>
+        </div>
+    </div>
+ -->
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+
+<script type="text/javascript">
     $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
-    </script>
+</script>
+
 
 <script>
+
     $(document).ready(function () {
         $('#search').on('keyup', function(){
             var value = $(this).val();
-            $.ajax({
-                type: "GET",
+            
+             $.ajax({
+                type: "get",
                 url: "/wires",
-                data: {'wires':value},
+                data: {'search':value},
                 success: function (data) {
-                //  $('.pos-style').html(data);
-                   console.log(data);
+                    $('.mycard').html(data);
+                   //console.log(data);
                 }
             }); 
 
-            
         });
     });
+
 </script>
 
   
 </body>
 
 @extends('layouts.footer')
+
+
