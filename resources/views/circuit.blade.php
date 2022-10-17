@@ -164,11 +164,18 @@
        
               <input type="search" id="search" name="search" class="form-control " placeholder="Circuit" style="width: 16rem;"/>
                 <!-- <button type="button" class="btn btn-outline-primary">search</button> -->
-                <div class="card mycard m-1 p-1" style="width: 16rem;">
+              <div class="mycard m-1 p-1 mt-4" style="width: 16rem;" name="location" >
+              <input type="text" id="location" name="location" class="form-control " placeholder="Location" style="width: 16rem;"/>
+              </div> 
+              <div class="input-group   mt-4">
+                
+              <input type="text"  name="scan_loca" class="form-control" placeholder="Scan Location"><br>
+            <input  type="hidden" id="scanLocation" name="scanLocation">{{request()->query('location')}}</input>
+           
 
-              </div>
-
-              </form> 
+           
+            </div>
+              
               
 
               </div>
@@ -178,27 +185,14 @@
          
     </div>
 
-          <div class="form-group mt-4">
-            <div class="input-group-append">
-              
-              <div class="input-group">
-             
-              </div>
-            </div>
-          </div>
-          <div class="form-group mt-4">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Scan Emplacement">
-             
-              
-            </div>
-          </div>
 
           <div class="form-group mt-4">
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Numéro de série">
+              <input type="text" class="form-control" placeholder="Numéro de série" name="serie"><br>
               
             </div>
+            <button type="submit" class="btn btn-danger btn-rounded mt-4">Ajouter</button>
+            </form> 
           </div>
           <div class="form-group d-flex justify-content-center">
             <div class="form-check form-check-flat mt-0">
@@ -232,47 +226,25 @@
             <tr>
                 <th>Circuit</th>
                 <th>Emplacement</th>
+                <th>Quantité</th>
                 <th>Date</th>
                 
               </tr>
             </thead>
+           
             <tbody>
               <tr>
-                <td>Jacob</td>
-                <td>Photoshop</td>
-                <td class="text-danger"> {{$Ldate=date('Y-m-d');}}<i class="mdi mdi-arrow-down"></i>
+                <td></td>
+                <td></td>
+                <td> </td>
+                <td class="text-danger">  <i class="mdi mdi-arrow-down"></i>
                 </td>
                 
               </tr>
-              <tr>
-                <td>Messsy</td>
-                <td>Flash</td>
-                <td class="text-danger"> {{$Ldate=date('Y-m-d');}}<i class="mdi mdi-arrow-down"></i>
-                </td>
-                
-              </tr>
-              <tr>
-                <td>John</td>
-                <td>Premier</td>
-                <td class="text-danger"> {{$Ldate=date('Y-m-d');}}<i class="mdi mdi-arrow-down"></i>
-                </td>
-                
-              </tr>
-              <tr>
-                <td>Peter</td>
-                <td>After effects</td>
-                <td class="text-success"> {{$Ldate=date('Y-m-d');}} <i class="mdi mdi-arrow-up"></i>
-                </td>
-                
-              </tr>
-              <tr>
-                <td>Dave</td>
-                <td>53275535</td>
-                <td class="text-success"> {{$Ldate=date('Y-m-d');}} <i class="mdi mdi-arrow-up"></i>
-                </td>
-             
-              </tr> 
+            
+            
             </tbody>
+           
           </table>
         </div>
       </div>

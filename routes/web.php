@@ -6,7 +6,7 @@ use App\Http\Controllers\SpliceController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\AjouterController;
-//use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\HistoriqueController;
 
 use Illuminate\http\Request;
 
@@ -82,6 +82,7 @@ Route::get('/dashbord', function () {
 
 
 Route::get('/wires',[App\Http\Controllers\WireController::class,'search']);
+//Route::get('/wires',[App\Http\Controllers\HistoriqueController::class, 'showHistorique']);
 
 /* Route::get(
     '/wires',

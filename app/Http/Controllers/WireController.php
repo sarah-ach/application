@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\WiresExport;
 use App\Imports\WiresImport;
+use App\Models\Historique;
 
 
 class WireController extends Controller
@@ -19,6 +20,9 @@ class WireController extends Controller
         $data=wire::all();
         return  view('admin.home',['wire'=>$data]);
     }
+
+
+    
 
     
 
@@ -115,13 +119,13 @@ class WireController extends Controller
 
     public function search(Request $request)
     {
-        //return view('circuit');
+        
 
          if($request->ajax())
         {
 
             $output='';
-            $wires=wire::where('wire_name','LIKE','%'.$request->search.'%' )->get();
+            $wires=wire::where('wire_name','LIKE','%'.$request->search.'%' )->get()->unique('location'); //distinct
 
             if($wires)
             {
