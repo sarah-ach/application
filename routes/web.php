@@ -73,16 +73,29 @@ Route::get('/dashbord', function () {
     return view('layouts/master');
 });
 
-/* Route::get('/wires', function () {
+ Route::get('/wires', function () {
     return view('circuit');
-}); */
-
-//Route::get('/wires', [App\Http\Controllers\WireController::class, 'index']); 
+}); 
 
 
+ 
 
-Route::get('/wires',[App\Http\Controllers\WireController::class,'search']);
-//Route::get('/wires',[App\Http\Controllers\HistoriqueController::class, 'showHistorique']);
+//Route::get('/wires',[App\Http\Controllers\WireController::class,'index'])->name('circuit');
+//Route::get('/wires',[App\Http\Controllers\WireController::class,'search']);
+
+
+//Route::get('/wires',[App\Http\Controllers\HistoriqueController::class, 'create'])->name('circuit');
+Route::post('/wires',[App\Http\Controllers\HistoriqueController::class, 'validator'])->name('circuit');
+
+
+
+Route::controller(WireController::class)->group(function(){
+    Route::get('wires', 'index');
+    Route::get('wires', 'search');
+   /*  Route::post('splices-import', 'import')->name('splices.import');
+    Route::get('splices-delete', 'delete')->name('splices.delete'); */
+});
+
 
 /* Route::get(
     '/wires',

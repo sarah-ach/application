@@ -11,7 +11,7 @@ class Historique extends Model
 
     protected $table = 'historique';
 
-    protected $fillable = [
+     protected $fillable = [
         
         'username',
         'wireName',
@@ -20,5 +20,12 @@ class Historique extends Model
         'quantite',
         'dateOperation',
         
-    ];
+    ]; 
+
+    /*protected $guarded = [];
+
+
+    public function task(){
+        return $this->belongsTo(User::class);
+    }*/
 }

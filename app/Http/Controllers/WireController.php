@@ -28,24 +28,6 @@ class WireController extends Controller
 
     public function index()
     {
-        /*$test=DB::table('wires')->where('location',$name)->value($input);
-        return $test;*/
-
-        /* $barcode=$request->Input('barcode'); */
-
-       // $wire=DB::table('wires')->where('wire_name',Input('barcode'))->value('location');
-
-      /* $name=DB::select("SELECT location from wires where 'wire_name'= ?",['M01CCA67AL.01']);
-       return view('circuit',['wires'=> $name]);*/
-
-
-
-       ///finding location with wire name
-     // $getwire_id=DB::select('SELECT location FROM wires where wire_name=?',['M01CCA67AL.01']);
-      
-       //$getwire_id=DB::table('wires')->where('location',$wire_name)->first();
-       //return $getwire_id;
-
 
        return view('circuit');
      
@@ -92,29 +74,6 @@ class WireController extends Controller
      }
 
 
-     /* public function index(Request $request)
-     
-     {
-        $input=$request->all();
-
-     } */
-
-
-     //function find location in data
-
-/*      public function index(Request $request)
-     
-     {
-        $wire=wire::latest()->pluck('wire_name','location');
-        dd($wire->toArray());
-
-     } */
-
-     /////testing function for getting workstation of a wire
-    //    function index1()
-    //    {
-    //     return DB::select('select workstation from wires');
-    //    }
 
 
     public function search(Request $request)

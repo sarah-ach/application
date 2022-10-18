@@ -155,30 +155,40 @@
           <div class="form-group mt-4">
             <div class="input-group-append">
               
-              <form class="pos-style" name="pos" action="" method="GET">
-              
+            <form method="POST" action="{{ route('register') }}">
+            @csrf
             <div class="input-group">
               <!-- <input type="text"  name="wire_name" class="form-control" placeholder="Circuit"><br> -->
               <!-- <input  type="hidden" id="search" name="search">{{request()->query('wire_name')}}</input> -->
+              
               <div class="row justify-content-center">
        
-              <input type="search" id="search" name="search" class="form-control " placeholder="Circuit" style="width: 16rem;"/>
+              <p class="card-text">{{ Auth::user()->username }}</p>
+              <input type="search" id="search" name="search" class="form-control " placeholder="Circuit" style="width: 16rem;" />
                 <!-- <button type="button" class="btn btn-outline-primary">search</button> -->
               <div class="mycard m-1 p-1 mt-4" style="width: 16rem;" name="location" >
-              <input type="text" id="location" name="location" class="form-control " placeholder="Location" style="width: 16rem;"/>
+
+              
+              <input type="text" id="location" name="location" class="form-control @error('location') is-invalid @enderror" placeholder="Location" style="width: 16rem;" required />
+
+              @error('location')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
               </div> 
               <div class="input-group   mt-4">
                 
-              <input type="text"  name="scan_loca" class="form-control" placeholder="Scan Location"><br>
+              <input type="text"  id="scan_loca" name="scan_loca" class="form-control" placeholder="Scan Location" required ><br>
+              
+
             <input  type="hidden" id="scanLocation" name="scanLocation">{{request()->query('location')}}</input>
            
 
            
             </div>
               
-              
-
-              </div>
+            
             </div>
           </div>
 
@@ -188,25 +198,34 @@
 
           <div class="form-group mt-4">
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Numéro de série" name="serie"><br>
+              <input type="text" class="form-control" placeholder="Numéro de série" name="serie" ><br>
               
             </div>
-            <button type="submit" class="btn btn-danger btn-rounded mt-4">Ajouter</button>
-            </form> 
+           
           </div>
-          <div class="form-group d-flex justify-content-center">
-            <div class="form-check form-check-flat mt-0">
-              <!-- <label class="form-check-label">
-                <input type="checkbox" class="form-check-input" checked> I agree to the terms </label> -->
-            </div>
-          </div>
-          <div class="form-group">
-            <!-- <button class="btn btn-primary submit-btn btn-block">Register</button> -->
-          </div>
-          <div class="text-block text-center my-3">
-            <!-- <span class="text-small font-weight-semibold">Already have and account ?</span>
-            <a href="{{ url('/user-pages/login') }}" class="text-black text-small">Login</a> -->
-          </div>
+          
+          <div class="row mb-3">
+                           
+                            <div class="col-md-6">
+                                <input id="location" type="text" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+                                @if ($errors->has('password'))
+                    <span class="text-danger">{{ $errors->first('password') }}</span>
+                @endif
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                        
+
+                            <div class="col-md-6">
+                                <input id="scanLocation" type="text" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            </div>
+                        </div>
+          
+          <div class="col-md-12 form-group">
+                        <button class=" btn pull-right" type="submit">Send</button>
+                    </div>
         </form>
       </div>
     </div>
@@ -322,10 +341,8 @@
                 <button type="button" class="btn btn-outline-primary">search</button>
             </div>
         </div>
-
         <div class="col-md-8">
             <div class="card mycard m-2 p-2" style="width: 18rem;">
-
             </div>
         </div>
     </div>
@@ -343,7 +360,6 @@
 
 
 <script>
-
     $(document).ready(function () {
         $('#search').on('keyup', function(){
             var value = $(this).val();
@@ -357,15 +373,11 @@
                    //console.log(data);
                 }
             }); 
-
         });
     });
-
 </script>
 
   
 </body>
 
 @extends('layouts.footer')
-
-
