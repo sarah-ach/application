@@ -6,6 +6,7 @@ use App\Models\Historique;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Validator, Input, Redirect; 
 
 
 class HistoriqueController extends Controller
@@ -26,31 +27,68 @@ class HistoriqueController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'search' => ['required', 'string', 'max:255'],
-            'location' => ['required', 'string', 'max:255','confirmed'],
-        
-            'scan_loca' => ['required', 'string', 'min:3', 'confirmed'],
-            'serie' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],    
+          
+            'password' => ['required', 'string', 'confirmed'],
+             'search'=>['required', 'string'],
+            
             
         ]);
-        $customMessages = [
-            'password.confirmed' => 'The :attribute does not match' // change it at here
-        ];
-        
-        $this->validate($request, $rules, $customMessages);
-    
     }
 
 
 
+    /* protected function validator(Request $request)
+    {
+        return Validator::make($request->all(), [
+            'search' => 'required', 'string', 'max:255',
+            'location' => 'required', 'string', 'max:255','confirmed',
+            'scan_loca' =>'required|same:location',
+            'serie' => 'required', 'string', 'max:255',
+              
+            
+        ]);
 
-        public function store(Request $rerquest)
+    } */
+
+
+   /*  public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'search' => 'required', 'string', 'max:255',
+            'location' => 'required|confirmed',
+            'scan_loca' =>'required|same:location',
+            
+            'serie' => 'required', 'string', 'max:255',
+
+        ]); // create the validations
+        if ($validator->fails())   //check all validations are fine, if not then redirect and show error messages
+        {
+            
+            return back()->withInput()->withErrors($validator);
+            
+        }
+        else
+        {
+            return response()->json(["status"=>true,"message"=>"Form submitted successfully"]);
+        }  
+    } */
+
+
+   /*  public function store2(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'location' => ['required', 'string', 
+            Rule::exists('wires')->where(function ($query) use ($request) {
+            return $query->where('scan-loca', $request->location)->orWhere('location', $request->location);}),
+        ]]);
+    } */
+
+        /* public function store(Request $rerquest)
         {
             $request->validate([
                 'password' => 'required|confirmed|min:6'
             ]);
-        }
+        } */
 
             
 

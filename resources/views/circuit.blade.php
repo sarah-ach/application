@@ -155,7 +155,7 @@
           <div class="form-group mt-4">
             <div class="input-group-append">
               
-            <form method="POST" action="{{ route('register') }}">
+            <form method="POST" action="{{  route('register')}}">
             @csrf
             <div class="input-group">
               <!-- <input type="text"  name="wire_name" class="form-control" placeholder="Circuit"><br> -->
@@ -164,31 +164,40 @@
               <div class="row justify-content-center">
        
               <p class="card-text">{{ Auth::user()->username }}</p>
-              <input type="search" id="search" name="search" class="form-control " placeholder="Circuit" style="width: 16rem;" />
+              <input type="search" id="wireName" name="search" class="form-control @error('search') is-invalid @enderror" placeholder="Circuit" style="width: 16rem;" />
                 <!-- <button type="button" class="btn btn-outline-primary">search</button> -->
-              <div class="mycard m-1 p-1 mt-4" style="width: 16rem;" name="location" >
+                @error('circuit')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+                <div class="form-group mt-4">
 
-              
-              <input type="text" id="location" name="location" class="form-control @error('location') is-invalid @enderror" placeholder="Location" style="width: 16rem;" required />
+            <div class="input-group">
+            
+            <div class="mycard m-1 p-1 mt-4 "  >
+                <input id="location" type="text" class=" form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" style="width: 16rem;" placeholder="Location">
 
-              @error('location')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-              </div> 
-              <div class="input-group   mt-4">
-                
-              <input type="text"  id="scan_loca" name="scan_loca" class="form-control" placeholder="Scan Location" required ><br>
-              
+                @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            </div>
 
-            <input  type="hidden" id="scanLocation" name="scanLocation">{{request()->query('location')}}</input>
-           
+            <div class="input-group mt-4">
 
-           
+                <input style="width: 16rem;"  id="scan_loc" type="text" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Scan-location">
+
             </div>
               
             
+          <div class="form-group mt-4">
+            <div class="input-group">
+              <input style="width: 16rem;"  type="text" class="form-control" placeholder="Numéro de série" name="serie" id="serie" required><br>
+              
+            </div>
+           
+          </div>
             </div>
           </div>
 
@@ -196,39 +205,33 @@
     </div>
 
 
-          <div class="form-group mt-4">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Numéro de série" name="serie" ><br>
-              
-            </div>
-           
-          </div>
-          
-          <div class="row mb-3">
-                           
-                            <div class="col-md-6">
-                                <input id="location" type="text" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
-                                @if ($errors->has('password'))
-                    <span class="text-danger">{{ $errors->first('password') }}</span>
-                @endif
+
+          
+    
+          <div class="row mb-0 mt-4">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Register') }}
+                                </button>
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                        
-
-                            <div class="col-md-6">
-                                <input id="scanLocation" type="text" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-          
-          <div class="col-md-12 form-group">
-                        <button class=" btn pull-right" type="submit">Send</button>
-                    </div>
         </form>
+        <!-- <form method="POST" action="{{ url('/wires') }}">
+        @csrf
+        <div class="row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Register') }}
+                                </button>
+                            </div>
+                        </div>
+                        </form> -->
       </div>
     </div>
+  </div>
+  </div>
   </div>
 </div>
       </div>
@@ -361,7 +364,7 @@
 
 <script>
     $(document).ready(function () {
-        $('#search').on('keyup', function(){
+        $('#wireName').on('keyup', function(){
             var value = $(this).val();
             
              $.ajax({
@@ -371,6 +374,7 @@
                 success: function (data) {
                     $('.mycard').html(data);
                    //console.log(data);
+                  
                 }
             }); 
         });

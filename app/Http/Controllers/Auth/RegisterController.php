@@ -72,10 +72,12 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255'],
             // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:3', 'confirmed'],
+            'password' => ['required', 'string', 'confirmed'],
             'post' => ['required', 'string', 'max:255'],
             'role' => ['required', 'string', 'max:255'],
             //'status' => ['required', 'in:admin,operateur'],
+
+
             
         ]);
     }
@@ -86,7 +88,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
+     protected function create(array $data)
     {
         
         return User::create([
@@ -99,10 +101,22 @@ class RegisterController extends Controller
             //'status' => $data['status'],
             
         ]);
-    }
+    } 
 
     public function index()
     {
         return view('admin.ajouter');
     } 
+
+    /* protected function create(array $data)
+    {
+        
+        return User::create([
+            'search' => $data['wireName'],
+            'password' => $data['location'],
+            'serie' => $data['serialNumber'],
+            
+            
+        ]);
+    } */
 }
