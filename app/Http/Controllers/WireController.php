@@ -90,15 +90,7 @@ class WireController extends Controller
             {
                 foreach($wires as $wire)
                 {
-                    $output .=
-                    ' <div class="card-body">
-                     
-                      <h5 class="card-title">'.$wire->location.'</h5>
-                     
-                
-                    </div>
-                  
-                  '; 
+                    $output .=$wire->location; 
                 }
                 
                 return response()->json($output);

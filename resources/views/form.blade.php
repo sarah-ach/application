@@ -4,6 +4,7 @@
 <title>Laravel 9 Form Validation</title>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
 <div class="container mt-4">
@@ -55,7 +56,6 @@
 
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 
 
@@ -69,7 +69,7 @@
         $('#circuit').on('keyup', function(){
             var value = $(this).val();
             
-             $.ajax({
+            /*  $.ajax({
                 type: "get",
                 url: "/form",
                 data: {'search':value},
@@ -77,7 +77,25 @@
                     //$('.mycard').html(data);
                    console.log(data);
                 }
-            }); 
+            });  */
+
+            if(value=="") {
+                $('#location').html("");
+                
+            }
+            else
+            {
+               $.get("{{URL::to('wire')}}",{value:'search'},function(data)
+               {
+                $('#location').empty().html(data);
+                $('#location').show();
+               } )
+              
+               
+            }
+
+
+
         });
     });
 </script>

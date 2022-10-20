@@ -94,8 +94,8 @@ Route::get('/dashbord', function () {
 
 //Route::get('/wires',[App\Http\Controllers\HistoriqueController::class, 'create'])->name('circuit');
 //Route::post('/wires',[App\Http\Controllers\HistoriqueController::class, 'validator'])->name('circuit');
-//Route::post('/wires',[App\Http\Controllers\HistoriqueController::class, 'index'])->name('circuit');
-
+Route::post('/wires',[App\Http\Controllers\HistoriqueController::class, 'store'])->name('circuit');
+//Route::post('store-circuit', [HistoriqueController::class, 'store']);
 
 
 

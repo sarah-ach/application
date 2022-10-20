@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Historique;
 
 class RegisterController extends Controller
 {
@@ -119,4 +120,30 @@ class RegisterController extends Controller
             
         ]);
     } */
+
+
+    public function store(Request $request)
+    {
+         
+        $validatedData = $request->validate([
+          'username' => 'required',
+          'location' => 'required|max:255',
+          'location' => 'required',
+          'serialNumber' => 'required|max:255', 
+
+
+        ]);
+ 
+        $circ = new Historique;
+ 
+        $circ->username = $request->username;
+        $circ->wireName = $request->wireName;
+        $circ->location = $request->location;
+        $circ->serialNumber = $request->serialNumber;
+ 
+        $circ->save();
+ 
+        return redirect('circuit')->with('status', 'Form Data Has Been Inserted');
+ 
+    }
 }

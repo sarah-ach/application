@@ -155,7 +155,7 @@
           <div class="form-group mt-4">
             <div class="input-group-append">
               
-            <form method="POST" action="{{  route('register')}}">
+            <form method="POST" action="{{url('register')}}">
             @csrf
             <div class="input-group">
               <!-- <input type="text"  name="wire_name" class="form-control" placeholder="Circuit"><br> -->
@@ -174,13 +174,14 @@
             <div class="input-group">
             
             <div class="mycard m-1 p-1 mt-4 "  >
-                <input id="location" type="text" class=" form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" style="width: 16rem;" placeholder="Location">
-
+                <textarea id="location" type="text" class=" form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" style="width: 16rem;" placeholder="Location">
+                </textarea>
                 @error('password')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
+
             </div>
             </div>
 
@@ -216,7 +217,7 @@
                                 </button>
                             </div>
                         </div>
-
+             
         </form>
         <!-- <form method="POST" action="{{ url('/wires') }}">
         @csrf
@@ -372,8 +373,9 @@
                 url: "/wires",
                 data: {'search':value},
                 success: function (data) {
-                    $('.mycard').html(data);
+                    $('.form-control').html(data);
                    //console.log(data);
+
                   
                 }
             }); 

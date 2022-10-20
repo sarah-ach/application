@@ -36,6 +36,31 @@ class HistoriqueController extends Controller
     }
 
 
+    public function store(Request $request)
+    {
+         
+        $validatedData = $request->validate([
+          'username' => 'required',
+          'location' => 'required|max:255',
+          'location' => 'required',
+          'serialNumber' => 'required|max:255', 
+
+
+        ]);
+ 
+        $circ = new Historique;
+ 
+        $circ->username = $request->username;
+        $circ->wireName = $request->wireName;
+        $circ->location = $request->location;
+        $circ->serialNumber = $request->serialNumber;
+ 
+        $circ->save();
+ 
+        return redirect('circuit')->with('status', 'Form Data Has Been Inserted');
+ 
+    }
+
 
     /* protected function validator(Request $request)
     {

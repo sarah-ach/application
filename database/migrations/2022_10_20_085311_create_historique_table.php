@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('wireName');
             $table->string('location');
             $table->string('serialNumber');
-            $table->integer('quantite');
+            $table->integer('quantite')->default(50);
             $table->date('dateOperation')->default(DB::raw('NOW()'));
 
             $table->foreign('username')->references('username')->on('users')->onDelete('cascade')->onUpdate('cascade');
