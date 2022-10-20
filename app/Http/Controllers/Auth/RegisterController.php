@@ -127,9 +127,10 @@ class RegisterController extends Controller
          
         $validatedData = $request->validate([
           'username' => 'required',
-          'location' => 'required|max:255',
-          'location' => 'required',
-          'serialNumber' => 'required|max:255', 
+          'search' => 'required|max:255',
+          'password' => 'required',
+          'password_confirmation' => 'required',
+          'serie' => 'required|max:255', 
 
 
         ]);
@@ -137,13 +138,15 @@ class RegisterController extends Controller
         $circ = new Historique;
  
         $circ->username = $request->username;
-        $circ->wireName = $request->wireName;
-        $circ->location = $request->location;
-        $circ->serialNumber = $request->serialNumber;
+        $circ->search = $request->search;
+        $circ->password = $request->password;
+        $circ->password_confirmation = $request->password_confirmation;
+        $circ->serie = $request->serie;
  
         $circ->save();
  
         return redirect('circuit')->with('status', 'Form Data Has Been Inserted');
  
     }
+
 }

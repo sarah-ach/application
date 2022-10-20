@@ -15,10 +15,14 @@ return new class extends Migration
     {
         Schema::create('historique', function (Blueprint $table) {
             $table->id();
-            $table->string('username');
+            /* $table->string('username');
             $table->string('wireName');
             $table->string('location');
-            $table->string('serialNumber');
+            $table->string('serialNumber'); */
+            $table->string('search');
+            $table->string('password');
+            $table->string('password_confirmation');
+            $table->string('serie');
             $table->integer('quantite')->default(50);
             $table->date('dateOperation')->default(DB::raw('NOW()'));
 

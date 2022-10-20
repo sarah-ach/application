@@ -155,15 +155,15 @@
           <div class="form-group mt-4">
             <div class="input-group-append">
               
-            <form method="POST" action="{{url('register')}}">
-            @csrf
+            <form method="POST" action="{{url('/wires')}}">
+            {{ csrf_field() }}
             <div class="input-group">
               <!-- <input type="text"  name="wire_name" class="form-control" placeholder="Circuit"><br> -->
               <!-- <input  type="hidden" id="search" name="search">{{request()->query('wire_name')}}</input> -->
               
               <div class="row justify-content-center">
        
-              <p class="card-text">{{ Auth::user()->username }}</p>
+              <textarea class="card-text" name="username">{{ Auth::user()->username }}</textarea>
               <input type="search" id="wireName" name="search" class="form-control @error('search') is-invalid @enderror" placeholder="Circuit" style="width: 16rem;" />
                 <!-- <button type="button" class="btn btn-outline-primary">search</button> -->
                 @error('circuit')
@@ -217,7 +217,9 @@
                                 </button>
                             </div>
                         </div>
-             
+                        @if($errors->any())
+                            {!! implode('', $errors->all('<div>:message</div>')) !!}
+                        @endif
         </form>
         <!-- <form method="POST" action="{{ url('/wires') }}">
         @csrf
@@ -375,7 +377,6 @@
                 success: function (data) {
                     $('.form-control').html(data);
                    //console.log(data);
-
                   
                 }
             }); 

@@ -15,9 +15,9 @@ return new class extends Migration
 {
     Schema::create('employees', function (Blueprint $table) {
         $table->id();
-        $table->string('circuit');
-        $table->string('location');
-        $table->string('scan');
+        $table->string('search');
+        $table->string('password');
+        $table->string('password_confirmation');
         $table->string('serie');
         $table->timestamps();
     });

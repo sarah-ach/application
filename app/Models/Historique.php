@@ -13,12 +13,19 @@ class Historique extends Model
 
      protected $fillable = [
         
-        'username',
+        /* 'username',
         'wireName',
         'location',
         'serialNumber',
         'quantite',
-        'dateOperation',
+        'dateOperation', */
+
+        
+        'search' ,
+        'password' ,
+        'password_confirmation',
+        'serie',
+        
         
     ]; 
 

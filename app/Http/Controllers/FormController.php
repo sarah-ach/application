@@ -17,9 +17,9 @@ class FormController extends Controller
     {
          
         $validatedData = $request->validate([
-          'circuit' => 'required',
-          'location' => 'required|max:255',
-          'scan' => 'required',
+          'search' => 'required',
+          'password' => 'required|max:255',
+          'password_confirmation' => 'required',
           'serie' => 'required|max:255', 
 
 
@@ -27,9 +27,9 @@ class FormController extends Controller
  
         $emp = new Employee;
  
-        $emp->circuit = $request->circuit;
-        $emp->location = $request->location;
-        $emp->scan = $request->scan;
+        $emp->search = $request->search;
+        $emp->password = $request->password;
+        $emp->password_confirmation = $request->password_confirmation;
         $emp->serie = $request->serie;
  
         $emp->save();
@@ -37,4 +37,6 @@ class FormController extends Controller
         return redirect('form')->with('status', 'Form Data Has Been Inserted');
  
     }
+
+    
 }

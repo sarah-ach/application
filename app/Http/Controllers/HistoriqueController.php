@@ -24,7 +24,7 @@ class HistoriqueController extends Controller
         return view("circuit");
     }
 
-    protected function validator(array $data)
+   /*  protected function validator(array $data)
     {
         return Validator::make($data, [
           
@@ -33,27 +33,32 @@ class HistoriqueController extends Controller
             
             
         ]);
-    }
+    } */
 
 
     public function store(Request $request)
     {
+        
          
         $validatedData = $request->validate([
-          'username' => 'required',
-          'location' => 'required|max:255',
-          'location' => 'required',
-          'serialNumber' => 'required|max:255', 
+          
+          'search' => 'required|max:255',
+          'password' => 'required',
+          'password_confirmation' => 'required',
+          'serie' => 'required',
+        
 
 
         ]);
  
         $circ = new Historique;
  
-        $circ->username = $request->username;
-        $circ->wireName = $request->wireName;
-        $circ->location = $request->location;
-        $circ->serialNumber = $request->serialNumber;
+        
+        $circ->search = $request->wireName;
+        $circ->password = $request->location;
+        $circ->password_confirmation = $request->password_confirmation;
+        $circ->serie = $request->serialNumber;
+        
  
         $circ->save();
  

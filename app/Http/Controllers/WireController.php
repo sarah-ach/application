@@ -51,16 +51,45 @@ class WireController extends Controller
  }*/
  
 
-     public function store()
-     {
-        // $name=$request->input('barcode');
-        // return $name;
-        $wirename=wire::where('wire_name',$wire_name)->pluck('location')->first ();
-        return $wirename;
+    //  public function store()
+    //  {
+    //     // $name=$request->input('barcode');
+    //     // return $name;
+    //     $wirename=wire::where('wire_name',$wire_name)->pluck('location')->first ();
+    //     return $wirename;
 
-        /*$wire=wire::select("SELECT location from wires where 'wire_name'= ?",['M01CCA67AL.01']);
-        return $wire;*/
-     }
+    //     /*$wire=wire::select("SELECT location from wires where 'wire_name'= ?",['M01CCA67AL.01']);
+    //     return $wire;*/
+    //  }
+
+
+    public function store(Request $request)
+    {
+         
+        $validatedData = $request->validate([
+          'username' => 'required',
+          'wireName' => 'required|max:255',
+          'location' => 'required',
+          'scanlocation' => 'required',
+          'serialNumber' => 'required|max:255', 
+
+
+        ]);
+ 
+        $circ = new Historique;
+ 
+        $circ->username = $request->username;
+        $circ->wireName = $request->wireName;
+        $circ->location = $request->location;
+        $circ->scanlocation = $request->scanlocation;
+        $circ->serialNumber = $request->serialNumber;
+ 
+        $circ->save();
+ 
+        return redirect('circuit')->with('status', 'Form Data Has Been Inserted');
+ 
+    }
+
 
      public function scan()
      {
@@ -68,11 +97,7 @@ class WireController extends Controller
          return view('wire',compact('barcode'));
      }
 
-     public function find(Request $request)
-     {
-        
-     }
-
+   
 
 
 
@@ -99,5 +124,37 @@ class WireController extends Controller
 
        return view('circuit');
         
+    }
+
+
+
+    public function storeH(Request $request)
+    {
+        
+         
+        $validatedData = $request->validate([
+          
+          'search' => 'required|max:255',
+          'password' => 'required',
+          'password_confirmation' => 'required',
+          'serie' => 'required',
+        
+
+
+        ]);
+ 
+        $circ = new Historique;
+ 
+        
+        $circ->search = $request->search;
+        $circ->password = $request->password;
+        $circ->password_confirmation = $request->password_confirmation;
+        $circ->serie = $request->serie;
+        
+ 
+        $circ->save();
+ 
+        return redirect('circuit')->with('status', 'Form Data Has Been Inserted');
+ 
     }
 }

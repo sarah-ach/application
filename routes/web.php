@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\AjouterController;
 use App\Http\Controllers\HistoriqueController;
+use App\Http\Controllers\FormController;
 
 use App\Http\Controllers\ContactUsFormController;
 
@@ -30,8 +31,8 @@ Route::get('/', function () {
 
 
  
-Route::get('form', [FormController::class, 'index']);
-Route::post('store-form', [FormController::class, 'store']);
+Route::get('form', [App\Http\Controllers\FormController::class, 'index']);
+Route::post('store-form', [App\Http\Controllers\FormController::class, 'store']);
 
 
 
@@ -94,16 +95,15 @@ Route::get('/dashbord', function () {
 
 //Route::get('/wires',[App\Http\Controllers\HistoriqueController::class, 'create'])->name('circuit');
 //Route::post('/wires',[App\Http\Controllers\HistoriqueController::class, 'validator'])->name('circuit');
-Route::post('/wires',[App\Http\Controllers\HistoriqueController::class, 'store'])->name('circuit');
+//Route::post('/wires',[App\Http\Controllers\HistoriqueController::class, 'store'])->name('circuit');
 //Route::post('store-circuit', [HistoriqueController::class, 'store']);
-
 
 
 Route::controller(WireController::class)->group(function(){
     Route::get('wires', 'index');
     Route::get('wires', 'search');
-       /*  Route::post('splices-import', 'import')->name('splices.import');
-    Route::get('splices-delete', 'delete')->name('splices.delete'); */
+    Route::post('wires', 'storeH');
+    /*Route::get('splices-delete', 'delete')->name('splices.delete'); */
 });
 
 
