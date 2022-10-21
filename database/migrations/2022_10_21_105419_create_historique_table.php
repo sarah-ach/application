@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('wireName');
             $table->string('location');
             $table->string('serialNumber'); */
+            $table->string('username');
             $table->string('search');
             $table->string('password');
             $table->string('password_confirmation');
@@ -26,7 +27,7 @@ return new class extends Migration
             $table->integer('quantite')->default(50);
             $table->date('dateOperation')->default(DB::raw('NOW()'));
 
-            $table->foreign('username')->references('username')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreign('username')->references('username')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();
         });

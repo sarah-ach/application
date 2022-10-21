@@ -36,7 +36,6 @@ class WireController extends Controller
 
 
    /* public function visualiseFile(Request $req,$wireName){
-
         $name=DB::select("SELECT location from wires where 'wire_name'= ?",['M01CCA67AL.01']);
          if(!isset($name)){
              abort(404);

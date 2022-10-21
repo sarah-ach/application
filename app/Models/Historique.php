@@ -20,7 +20,7 @@ class Historique extends Model
         'quantite',
         'dateOperation', */
 
-        
+        'username',
         'search' ,
         'password' ,
         'password_confirmation',

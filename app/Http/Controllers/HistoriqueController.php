@@ -15,7 +15,6 @@ class HistoriqueController extends Controller
     {
         $data2=Historique::all();
         return  view('circuit',compact('Historique', $data2));
-
     }  */
 
     function index()
@@ -23,6 +22,9 @@ class HistoriqueController extends Controller
         
         return view("circuit");
     }
+
+    
+
 
    /*  protected function validator(array $data)
     {
@@ -77,7 +79,6 @@ class HistoriqueController extends Controller
               
             
         ]);
-
     } */
 
 
@@ -89,7 +90,6 @@ class HistoriqueController extends Controller
             'scan_loca' =>'required|same:location',
             
             'serie' => 'required', 'string', 'max:255',
-
         ]); // create the validations
         if ($validator->fails())   //check all validations are fine, if not then redirect and show error messages
         {

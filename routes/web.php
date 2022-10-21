@@ -96,7 +96,7 @@ Route::get('/dashbord', function () {
 //Route::get('/wires',[App\Http\Controllers\HistoriqueController::class, 'create'])->name('circuit');
 //Route::post('/wires',[App\Http\Controllers\HistoriqueController::class, 'validator'])->name('circuit');
 //Route::post('/wires',[App\Http\Controllers\HistoriqueController::class, 'store'])->name('circuit');
-//Route::post('store-circuit', [HistoriqueController::class, 'store']);
+//Route::get('/operateur/dashboard', [HistoriqueController::class, 'index']);
 
 
 Route::controller(WireController::class)->group(function(){
@@ -187,5 +187,3 @@ All Admin Routes List
 });
   
  */
-
-
