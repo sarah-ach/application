@@ -121,7 +121,7 @@ class WireController extends Controller
             }
         }  
 
-       return view('circuit');
+       return view('/operateur/dashbord');
         
     }
 
@@ -153,7 +153,7 @@ class WireController extends Controller
  
         $circ->save();
  
-        return redirect('circuit')->with('status', 'Form Data Has Been Inserted');
+        return redirect('operateur/dashboard')->with('status', 'Form Data Has Been Inserted');
  
     }
 }

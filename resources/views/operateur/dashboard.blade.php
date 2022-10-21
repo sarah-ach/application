@@ -162,7 +162,10 @@
               
               <div class="row justify-content-center">
        
-              <textarea class="card-text" name="username">{{ Auth::user()->username }}</textarea>
+              <!-- <textarea class="card-text" name="username">{{ Auth::user()->username }}</textarea> -->
+<div class="media-body">
+            <p class="card-text">{{ Auth::user()->username }}</p>
+          </div>
               <input type="search" id="wireName" name="search" class="form-control @error('search') is-invalid @enderror" placeholder="Circuit" style="width: 16rem;" />
                 @error('circuit')
                 <div class="alert alert-danger">{{ $message }}</div>
