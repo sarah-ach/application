@@ -9,7 +9,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\WiresExport;
 use App\Imports\WiresImport;
 use App\Models\Historique;
-
+use Illuminate\Support\Facades\Validator;
 
 class WireController extends Controller
 {
@@ -62,7 +62,7 @@ class WireController extends Controller
     //  }
 
 
-    public function store(Request $request)
+    /* public function store(Request $request)
     {
          
         $validatedData = $request->validate([
@@ -87,7 +87,7 @@ class WireController extends Controller
  
         return redirect('circuit')->with('status', 'Form Data Has Been Inserted');
  
-    }
+    } */
 
 
      public function scan()
@@ -127,14 +127,15 @@ class WireController extends Controller
 
 
 
-    public function storeH(Request $request)
+    /* public function storeH(Request $request)
     {
         
          
         $validatedData = $request->validate([
           
+          'username'=>'required',
           'search' => 'required|max:255',
-          'password' => 'required',
+          'password' => 'required|confirmed',
           'password_confirmation' => 'required',
           'serie' => 'required',
         
@@ -144,7 +145,7 @@ class WireController extends Controller
  
         $circ = new Historique;
  
-        
+        $circ->username = $request->username;
         $circ->search = $request->search;
         $circ->password = $request->password;
         $circ->password_confirmation = $request->password_confirmation;
@@ -155,5 +156,83 @@ class WireController extends Controller
  
         return redirect('operateur/dashboard')->with('status', 'Form Data Has Been Inserted');
  
-    }
+    } */
+
+/* 
+    public function storeH(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'username' => 'required', 'string', 'max:255',
+            'search' => 'required',
+            'password' => 'required|confirmed',
+            'password_confirmation' =>'required|same:password',
+            'serie' => 'required',
+            
+        ]); // create the validations
+        $circ = new Historique;
+ 
+        $circ->username = $request->username;
+        $circ->search = $request->search;
+        $circ->password = $request->password;
+        $circ->password_confirmation = $request->password_confirmation;
+        $circ->serie = $request->serie;
+        
+ 
+        $circ->save();
+ 
+        return redirect('operateur/dashboard')->with('status', 'Form Data Has Been Inserted');
+    } */
+
+
+ public function storeH(Request $request)
+{
+    
+     
+     /* $request->validate([
+      
+      'username'=>'required',
+      'search' => 'required',
+      'password' => 'required',
+      'password_confirmation' => 'required',
+      'serie' => 'required',
+    
+
+
+    ]);
+ */
+
+        $validate=Validator::make($request->all(),['username'=>'required',
+        'search' => 'required',
+        'password' => 'required|confirmed',
+        'password_confirmation' => 'required|same:password',
+        'serie' => 'required',
+        ],[
+            'search.required'=>'Nom de circuit obligatoire',
+            'password.required'=>'Le circuit n existe pas dans la base de donnée',
+            'password.confirmed'=>'Erreur Emplacement scan',
+            'password_confirmation.required'=>'Scan location obligatoire',
+            'password_confirmation.same'=>'La confirmation du Scan location ne correspond pas',
+            'serie.required'=>'Numéro de série obligatoire',
+        ]);
+        if($validate->fails())
+        {
+            return back()->withErrors($validate->errors());
+        }
+        $circ = new Historique;
+        
+        $circ->username = $request->username;
+        $circ->search = $request->search;
+        $circ->password = $request->password;
+        $circ->password_confirmation = $request->password_confirmation;
+        $circ->serie = $request->serie;
+
+
+        $circ->save();
+
+        return redirect('operateur/dashboard')->with('status', 'Form Data Has Been Inserted');
+
+
+}
+
+
 }

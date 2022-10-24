@@ -33,13 +33,13 @@
                        
                      {{ session('status') }}
                        
-                        <li class="nav-item"> <a class="nav-link " aria-current="page" href="/admin/home">Importer</a></li>
+                        <!-- <li class="nav-item"> <a class="nav-link " aria-current="page" href="/admin/home">Importer</a></li>
                     <li class="nav-item"> <a class="nav-link active" href="/wires">Vérification Circuit</a></li>
                     <li class="nav-item"> <a class="nav-link " href="/admin/exporter">Exporter</a></li>
                     <li class="nav-item"> <a class="nav-link " href="/admin/ajouter">Ajouter Opérateur</a></li>
-                   
+                    
                         <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Admin</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Operator</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Operator</a></li>-->
                         
                     @endif
                     </ul>
@@ -164,12 +164,15 @@
        
               <!-- <textarea class="card-text" name="username">{{ Auth::user()->username }}</textarea> -->
 <div class="media-body">
-            <p class="card-text">{{ Auth::user()->username }}</p>
+<input type="text" wire:model="name" name="username" class="form-control" value="{{ Auth::user()->username }}" style="width: 17rem;">
+
           </div>
-              <input type="search" id="wireName" name="search" class="form-control @error('search') is-invalid @enderror" placeholder="Circuit" style="width: 16rem;" />
+          <div class="input-group mt-4">
+              <input type="search" id="wireName" name="search" class="form-control mt-4 @error('search') is-invalid @enderror" placeholder="Circuit" style="width: 16rem;" />
                 @error('circuit')
                 <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
+                </div>
                 <div class="form-group mt-4">
 
             <div class="input-group">
@@ -185,18 +188,27 @@
 
             </div>
             </div>
+            
 
             <div class="input-group mt-4">
 
-                <input style="width: 16rem;"  id="scan_loc" type="text" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Scan-location">
-
+                <input style="width: 16rem;"  id="scan_loc" type="text" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" required autocomplete="new-password" placeholder="Scan-location">
+                @error('password_confirmation')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
               
             
           <div class="form-group mt-4">
             <div class="input-group">
-              <input style="width: 16rem;"  type="text" class="form-control" placeholder="Numéro de série" name="serie" id="serie" required><br>
-              
+              <input style="width: 16rem;"  type="text" class="form-control @error('serie') is-invalid @enderror" placeholder="Numéro de série" name="serie" id="serie" required><br>
+              @error('serie')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
            
           </div>
@@ -218,9 +230,9 @@
                                 </button>
                             </div>
                         </div>
-                        @if($errors->any())
+                        <!-- @if($errors->any())
                             {!! implode('', $errors->all('<div>:message</div>')) !!}
-                        @endif
+                        @endif -->
         </form>
         </div>
     </div>

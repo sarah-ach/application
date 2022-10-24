@@ -69,6 +69,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/splices', function () {
         return view('admin.splices');
     });
+    
 
  
     Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->middleware('role:admin');
@@ -96,14 +97,22 @@ Route::get('/dashbord', function () {
 //Route::get('/wires',[App\Http\Controllers\HistoriqueController::class, 'create'])->name('circuit');
 //Route::post('/wires',[App\Http\Controllers\HistoriqueController::class, 'validator'])->name('circuit');
 //Route::post('/wires',[App\Http\Controllers\HistoriqueController::class, 'store'])->name('circuit');
-//Route::get('/operateur/dashboard', [HistoriqueController::class, 'index']);
+//Route::get('/operateur/dashboard', [DashboardController::class, 'storeH']);
 
+
+/* Route::controller(App\Http\Controllers\Operateur\DashboardController::class)->group(function(){
+
+    Route::get('operateur.dashboard', 'index');
+    Route::get('operateur.dashboard', 'search');
+    Route::post('operateur.dashboard', 'storeH');
+    
+}); */
 
 Route::controller(WireController::class)->group(function(){
     Route::get('wires', 'index');
     Route::get('wires', 'search');
     Route::post('wires', 'storeH');
-    /*Route::get('splices-delete', 'delete')->name('splices.delete'); */
+  
 });
 
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Historique;
 
+
 class DashboardController extends Controller
 {
      public function __construct() {
@@ -21,30 +22,31 @@ class DashboardController extends Controller
         }
 
 
-public function search(Request $request)
-    {
-        
-
-         if($request->ajax())
+        public function search(Request $request)
         {
-
-            $output='';
-            $wires=wire::where('wire_name','LIKE','%'.$request->search.'%' )->get()->unique('location'); //distinct
-
-            if($wires)
+            
+    
+             if($request->ajax())
             {
-                foreach($wires as $wire)
+    
+                $output='';
+                $wires=wire::where('wire_name','LIKE','%'.$request->search.'%' )->get()->unique('location'); //distinct
+    
+                if($wires)
                 {
-                    $output .=$wire->location; 
+                    foreach($wires as $wire)
+                    {
+                        $output .=$wire->location; 
+                    }
+                    
+                    return response()->json($output);
                 }
-                
-                return response()->json($output);
-            }
-        }  
-
-       return view('circuit');
-        
-    }
+            }  
+    
+           return view('/operateur/dashboard');
+            
+        }
+    
 
 
     public function storeH(Request $request)
@@ -53,6 +55,7 @@ public function search(Request $request)
          
         $validatedData = $request->validate([
           
+          'username'=>'required',
           'search' => 'required|max:255',
           'password' => 'required',
           'password_confirmation' => 'required',
@@ -64,7 +67,7 @@ public function search(Request $request)
  
         $circ = new Historique;
  
-        
+        $circ->username = $request->username;
         $circ->search = $request->search;
         $circ->password = $request->password;
         $circ->password_confirmation = $request->password_confirmation;
