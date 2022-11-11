@@ -8,8 +8,9 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\AjouterController;
 use App\Http\Controllers\HistoriqueController;
 use App\Http\Controllers\FormController;
-
+use App\Http\Controllers\PostsController;
 use App\Http\Controllers\ContactUsFormController;
+use App\Http\Controllers\ExporterController;
 
 
 use Illuminate\http\Request;
@@ -29,10 +30,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
- 
-Route::get('form', [App\Http\Controllers\FormController::class, 'index']);
-Route::post('store-form', [App\Http\Controllers\FormController::class, 'store']);
 
 
 
@@ -58,9 +55,18 @@ Route::group(['prefix' => 'admin'], function () {
 
    
 
-    Route::get('/exporter', function () {
-        return view('admin.exporter');
-    });
+   
+
+ 
+  
+    Route::controller(ExporterController::class)->group(function(){
+        Route::get('exporter', 'index');
+       //Route::get('exporter', 'search');
+        Route::get('historique-export', 'export')->name('historique.export');
+        Route::get('exporter','ShowData');
+        
+        
+   });
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.home');
     Route::get('/home',[App\Http\Controllers\WireController::class, 'show']);
@@ -71,13 +77,14 @@ Route::group(['prefix' => 'admin'], function () {
     });
     
 
- 
+    
     Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->middleware('role:admin');
-Route::get('/dashboard',[App\Http\Controllers\Admin\DashboardController::class, 'show']);
+    Route::get('/dashboard',[App\Http\Controllers\Admin\DashboardController::class, 'show']);
 
 });
 
 Route::get('admin/splices',[App\Http\Controllers\SpliceController::class,'index'])->name('admin.splices');
+
 
 Route::get('/dashbord', function () {
     return view('layouts/master');
@@ -86,6 +93,7 @@ Route::get('/dashbord', function () {
  Route::get('/wires', function () {
     return view('circuit');
 }); 
+
 
 
  
@@ -115,6 +123,18 @@ Route::controller(WireController::class)->group(function(){
   
 });
 
+
+Route::controller(PostsController::class)->group(function(){
+    Route::get('admin/posts', 'index');
+   Route::get('admin/posts', 'show');
+   Route::post('admin/posts', 'store');
+   Route::get('admin/posts/{id}', 'destroy')->name('posts.destroy');
+ //Route::post('admin/posts/{id}', 'editPost')->name('posts.editPost');
+ //Route::get('admin/posts/{id}','getPost')->name('getPost');
+  
+});
+
+//Route::post('admin/posts', [PostsController::class, 'update'])->name('posts.update');
 
 /* Route::get(
     '/wires',

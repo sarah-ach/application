@@ -4,8 +4,9 @@ namespace App\Exports;
 
 use App\Models\wire;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class WiresExport implements FromCollection
+class WiresExport implements FromCollection,WithHeadings
 {
     /**
     * @return \Illuminate\Support\Collection

@@ -36,7 +36,7 @@
                    @auth
 
                         <li class="nav-item"> <a class="nav-link active" aria-current="page" href="/admin/home">Importer</a></li>
-                    <!-- <li class="nav-item"> <a class="nav-link " href="/wires">Vérification Circuit</a></li> -->
+                        <li class="nav-item"> <a class="nav-link active" href="/admin/posts">Posts</a></li>
                     <li class="nav-item"> <a class="nav-link " href="/admin/exporter">Exporter</a></li>
                     <li class="nav-item"> <a class="nav-link " href="/admin/ajouter">Ajouter Opérateur</a></li>
                     @else

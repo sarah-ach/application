@@ -261,7 +261,7 @@
               </tr>
             </thead>
             <tbody>
-            @foreach($Historique as $his)
+            @foreach($historique as $his)
             <tr>
                 <td>{{ $his->search }}</td>
                 <td>{{ $his->password }}</td>

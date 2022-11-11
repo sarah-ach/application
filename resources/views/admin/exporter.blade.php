@@ -42,6 +42,7 @@
 
                         <li class="nav-item"> <a class="nav-link " aria-current="page" href="/admin/home">Importer</a></li>
                     <!-- <li class="nav-item"> <a class="nav-link " href="/wires">Vérification Circuit</a></li> -->
+                    <li class="nav-item"> <a class="nav-link " href="/admin/posts">Posts</a></li>
                     <li class="nav-item"> <a class="nav-link active " href="/admin/exporter">Exporter</a></li>
                     <li class="nav-item"> <a class="nav-link " href="/admin/ajouter">Ajouter Opérateur</a></li>
                     @else
@@ -112,60 +113,45 @@
   <div class="col-md-4 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
+     
       <h4 class="card-title">Filtrer</h4>
         <div class="media">
-        <p class="mb-2 text-right"></p>
+        <form action="" method="GET">
+        <!-- <p class="mb-2 text-right"></p> -->
             <div class="fluid-container">
-              <div class="dropdown">
-                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                Choisir le fichier
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="">Toutes</a></li>
-                    <li><a class="dropdown-item" href="">Matricule number</a></li>
-                </ul>
-                
-              </div>&nbsp;&nbsp;
-             
-            </div>
-            <p class="mb-0 text-right">Date:</p>
-            <div class="fluid-container">
-
-            <form>
+              
+                  <select name="type"class="form-select">              
+                    <option value="">Select Type</option>
+                    <option value="toutes">Toutes</option>
+                    <option value="matricule_number">Matricule number</option>
+                </select> 
+                 
+              
             <div class="row form-group">
-                
+            <p class="mb-0 text-left">Date:</p>
                 <div class="col-sm-12">
-                    <div class="input-group date" id="datepicker">
-                        <input type="text" class="form-control">
-                        <span class="input-group-append">
-                            <span class="input-group-text bg-white">
-                                <i class="fa fa-calendar"></i> 
-                            </span>
-                        </span>
-                    </div>
-                    <label class="form-check-label">
-                 <input type="checkbox" class="form-check-input" checked>Circuit non scannée </label>  
+                <input type="date" class="form-control" id="dob" name="Date" value="{{Request::get('Date')?? date('Y-m-d')}}">
+                      
                 </div>
             </div>
-        </form>
-
-
+        
             </div>
-            <div class="form-group d-flex justify-content-center">
-            <div class="form-check form-check-flat mt-0">
-            <div class="form-group">
+       
+            <button type="submit" class="btn btn-dark  float-begin btn-rounded" >Filtrer</button>
+            </form>
+          
+            <div class="form-group d-flex justify-content-center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           
           <form action="{{ route('splices.import') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                
-                  &nbsp;&nbsp;&nbsp;
-                  <button class="btn btn-dark  float-begin btn-rounded">Filtrer</button> <br>
-                 <a class="btn btn-success float-end btn-rounded" href="{{ route('splices.export') }}">Exporter</a>
+                 <br><br>
+                 <a class="btn btn-success float-end btn-rounded" href="{{ route('historique.export') }}">Exporter</a>
                  
             </form>
              
+          
           </div>
-            </div>
-          </div>
+
           
         </div>
       </div>
@@ -189,11 +175,12 @@
  
 </div>
 
-
+<form method="POST" action="{{url('/admin/exporter')}}">
+            {{ csrf_field() }}
   <div class="col-lg-12 grid-margin stretch-card mt-4">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Hoverable Table</h4>
+        <h4 class="card-title">Historique de vérification</h4>
         
         <div class="table-responsive">
           <table class="table table-hover">
@@ -203,55 +190,23 @@
                 <th>WireName</th>
                 <th>Location</th>
                 <th>SerialNumber</th>
+                <th>Quantité</th>
                 <th>DateOperation</th> 
+                <th>Post</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Jacob</td>
-                <td>Photoshop</td>
-                <td class="text-danger"> 28.76% <i class="mdi mdi-arrow-down"></i>
-                </td>
-                <!-- <td>
-                  <label class="badge badge-danger">Pending</label>
-                </td> -->
-              </tr>
-              <tr>
-                <td>Messsy</td>
-                <td>Flash</td>
-                <td class="text-danger"> 21.06% <i class="mdi mdi-arrow-down"></i>
-                </td>
-                <!-- <td>
-                  <label class="badge badge-warning">In progress</label>
-                </td> -->
-              </tr>
-              <tr>
-                <td>John</td>
-                <td>Premier</td>
-                <td class="text-danger"> 35.00% <i class="mdi mdi-arrow-down"></i>
-                </td>
-                <!-- <td>
-                  <label class="badge badge-info">Fixed</label>
-                </td> -->
-              </tr>
-              <tr>
-                <td>Peter</td>
-                <td>After effects</td>
-                <td class="text-success"> 82.00% <i class="mdi mdi-arrow-up"></i>
-                </td>
-                <!-- <td>
-                  <label class="badge badge-success">Completed</label>
-                </td> -->
-              </tr>
-              <tr>
-                <td>Dave</td>
-                <td>53275535</td>
-                <td class="text-success"> 98.05% <i class="mdi mdi-arrow-up"></i>
-                </td>
-                <!-- <td>
-                  <label class="badge badge-warning">In progress</label>
-                </td> -->
-              </tr> 
+            @foreach($historiquejoin as $his)
+            <tr>
+                <td>{{ $his->username }}</td>
+                <td id="wireName" name="search">{{ $his->search }}</td>
+                <td>{{ $his->password }}</td>
+                <td>{{ $his->serie }}</td>
+                <td>{{ $his->quantite}}</td>
+                <td>{{ $his->dateOperation }}</td>
+                <td class="mycard">{{ $his->workstation }}</td>
+            </tr>
+                @endforeach
             </tbody>
           </table>
         </div>
@@ -259,6 +214,8 @@
     </div>
   </div>
 </div>
+</form>
+
 @else
 <!-- Responsive navbar-->
 <div class="container-fluid">
@@ -322,6 +279,35 @@
             $('#datepicker').datepicker();
         });
     </script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+
+<script type="text/javascript">
+    $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        $('#wireName').on('keyup', function(){
+            var value = $(this).val();
+            
+             $.ajax({
+                type: "get",
+                url: "/admin/exporter",
+                data: {'search':value},
+                success: function (data) {
+                    //$('.mycard').html(data);
+                   console.log(data);
+                  
+                }
+            }); 
+        });
+    });
+</script>
+
 
 </body>
 

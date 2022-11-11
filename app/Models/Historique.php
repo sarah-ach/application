@@ -29,10 +29,5 @@ class Historique extends Model
         
     ]; 
 
-    /*protected $guarded = [];
-
-
-    public function task(){
-        return $this->belongsTo(User::class);
-    }*/
+   
 }

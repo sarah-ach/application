@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('serie');
             $table->integer('quantite')->default(50);
             $table->date('dateOperation')->default(DB::raw('NOW()'));
+            $table->integer('post');
 
             // $table->foreign('username')->references('username')->on('users')->onDelete('cascade')->onUpdate('cascade');
 

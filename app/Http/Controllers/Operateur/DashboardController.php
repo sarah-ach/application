@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Operateur;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Historique;
-
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -16,9 +16,20 @@ class DashboardController extends Controller
 
       public function index()
         {
-                return view('operateur.dashboard', [
-                'Historique' => Historique::all()
-            ]);
+            $id = false;
+            if(auth()->user()->level != 1){
+                $id = auth()->user()->username;
+            }
+            $historique = DB::table('historique')
+                        ->select('historique.search','historique.password','historique.quantite','historique.dateOperation')
+                        
+                        ->join('users', 'users.username', '=', 'historique.username')
+                        ->when($id, function($query, $id){
+                            return $query->where('users.username', $id);
+                        })
+                        ->get();
+                       
+            return view('operateur.dashboard',compact('historique'));
         }
 
 
