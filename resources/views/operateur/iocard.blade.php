@@ -10,37 +10,40 @@
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
-      
-
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-        
-
-
         @extends('layouts.style')
+
+      <style>
+        .scrollable
+        {
+          height:500px;
+          overflow:scroll;
+        }
+
+        .btn {padding:10px 24px;}
+      </style>
+
     </head>
-    <!-- navigation bar !-->
+
+
+    <!-- body part -->
+
     <body>
-    @if (Route::has('login'))
+@if (Route::has('login'))
           
           @auth   
-  <div class="container-fluid ">
+  <div class="container-fluid">
     <!-- navigation bar !-->
-<nav class="container-fluid navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}"><img class="img-fluid" src="{{asset('img/img1.jpg')}}" alt="..."  width="200" height="100"/></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-4 mb-lg-0">
                     @if (Route::has('login'))
           
                    @auth
-                   <li class="nav-item dropdown">
+
+                    <!-- <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Verification Circuit
                       </a>
@@ -48,11 +51,15 @@
                         <li><a class="dropdown-item" href="/admin/home">Importer</a></li>
                         <li><a class="dropdown-item" href="/admin/posts">Posts</a></li>
                         <li><a class="dropdown-item" href="/admin/exporter">Exporter</a></li>
-                        <li><a class="dropdown-item"  href="/admin/ajouter">Ajouter Opérateur</a></li>
+                        <li><a class="dropdown-item"  hr ef="/admin/ajouter">Ajouter Opérateur</a></li>
                       </ul>
-                    </li>
+                    </li> -->
 
-                    <li class="nav-item"> <a class="nav-link " aria-current="page" href="/admin/IocardAdmin">Scanner IO card</a></li>
+                    <li class="nav-item"> <a class="nav-link " href="/operateur/dashboard">Vérification Circuit</a></li>
+                   
+                    <li class="nav-item"> <a class="nav-link active" aria-current="page" href="/iocard">Scanner IO card</a></li>
+                    
+
                     @else
                         <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Admin</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Operator</a></li>
@@ -71,7 +78,7 @@
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Ajouter') }}</a>
                                 </li>
                             @endif
                         @else
@@ -93,138 +100,84 @@
                                 </div>
                             </li>
                         @endguest
+                        
                     </ul>
                 </div>
             </div>
         </nav>
 
-
-        <!--content!-->
-
-        <div class="row container-fluid mt-4">
-  
- 
-  <div class="col-md-4 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Exportation de donnée</h4>
-        <div class="media">
-          <i class="mdi mdi-earth icon-md text-info d-flex align-self-start mr-3"></i>
-          <div class="media-body">
-          <h5>{{ Auth::user()->role }}</h5>
-          <h5>{{ Auth::user()->post }}</h5>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-     
-      <h4 class="card-title">Filtrer</h4>
-        <div class="media">
-        <form action="" method="GET">
-        <!-- <p class="mb-2 text-right"></p> -->
-            <div class="fluid-container">
-              
-                  <select name="type"class="form-select">              
-                    <option value="">Select Type</option>
-                    <option value="toutes">Toutes</option>
-                    <option value="matricule_number">Matricule number</option>
-                </select> 
-                 
-              
-            <div class="row form-group">
-            <p class="mb-0 text-left">Date:</p>
-                <div class="col-sm-12">
-                <input type="date" class="form-control" id="dob" name="Date" value="{{Request::get('Date')?? date('Y-m-d')}}">
-                      
-                </div>
-            </div>
-        
-            </div>
        
-            <button type="submit" class="btn btn-dark  float-begin btn-rounded" >Filtrer</button>
-            </form>
-          
-            <div class="form-group d-flex justify-content-center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-           
-          <form action="{{ route('splices.import') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                 <br><br>
-                 <a class="btn btn-success float-end btn-rounded" href="{{ route('historique.export') }}">Exporter</a>
-                 
-            </form>
-             
-          
-          </div>
+        <!--content page !-->
 
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Matricule</h4>
-        <div class="media">
-          <i class="mdi mdi-earth icon-md text-info d-flex align-self-end mr-3"></i>
-          <div class="media-body">
-            <p class="card-text">{{ Auth::user()->username }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    
 
-  
- 
+        <div class="container-fluid vh-200" style="margin-top:100px">
+            <div class="" style="margin-top:100px">
+                <div class="rounded d-flex justify-content-center">
+                    <div class="col-md-4 col-lg-9 shadow-lg p-5 bg-light ">
+                    
+                        <div class="text-center" >
+                            <h3  style="color:#ff0021;">SCAN IOD CARD</h3>
+                        </div>
+
+                <div class="card-body">
+                    <form method="POST" action="{{ route('register') }}" class="form-inline">
+                        @csrf
+                        
+                        <div class="row mb-3">
+                            
+                        <form method="POST" action="{{ route('register') }}" class="form-inline">
+                        @csrf
+                        
+                        <div class="row mb-3">
+                            
+                            <label for="username" class="col-md-2 col-form-label text-md-end">{{ __('QR Code:') }}</label>
+
+                            <div class="col-md-9">
+                            <div class="form-outline mb-4">
+                            <textarea class="form-control" id="QR" rows="3"></textarea>
+
+                            </div>
+                                @error('QR')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                             
+
+                            
+                        </div>
+                        <div class="col-md-12 ">
+                            <!-- spacing for button center -->
+                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-default btn-md-4 btn-block " type="reset">
+                                    {{ __('Effacer') }}
+                            </button>
+                            </div>
+                        </div>
+                       
+                        
+    </form> 
+                    </form>
+                    
+                    
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
 </div>
 
-<form method="POST" action="{{url('/admin/exporter')}}">
-            {{ csrf_field() }}
-  <div class="col-lg-12 grid-margin stretch-card mt-4">
-    <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Historique de vérification</h4>
-        
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>MatriculeOpérateur</th>
-                <th>WireName</th>
-                <th>Location</th>
-                <th>SerialNumber</th>
-                <th>Quantité</th>
-                <th>DateOperation</th> 
-                <th>Post</th>
-              </tr>
-            </thead>
-            <tbody>
-            @foreach($historiquejoin as $his)
-            <tr>
-                <td>{{ $his->username }}</td>
-                <td id="wireName" name="search">{{ $his->search }}</td>
-                <td>{{ $his->password }}</td>
-                <td>{{ $his->serie }}</td>
-                <td>{{ $his->quantite}}</td>
-                <td>{{ $his->dateOperation }}</td>
-                <td class="mycard">{{ $his->workstation }}</td>
-            </tr>
-                @endforeach
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</form>
 
-@else
+
+        @else
 <!-- Responsive navbar-->
 <div class="container-fluid">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -281,45 +234,11 @@
                         
                         @endauth
                     @endif
+                    @extends('layouts.footer')
 
-                    <script type="text/javascript">
-        $(function() {
-            $('#datepicker').datepicker();
-        });
-    </script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-
-
-<script type="text/javascript">
-    $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
-</script>
-
-
-<script>
-    $(document).ready(function () {
-        $('#wireName').on('keyup', function(){
-            var value = $(this).val();
-            
-             $.ajax({
-                type: "get",
-                url: "/admin/exporter",
-                data: {'search':value},
-                success: function (data) {
-                    //$('.mycard').html(data);
-                   console.log(data);
-                  
-                }
-            }); 
-        });
-    });
-</script>
-
-
-</body>
-
-
-
-
-@extends('layouts.footer')
+        <main class="py-4 mt-2 col-md-12">
+            @yield('content')
+        </main>
+        </div>
+        </body>
+</html>

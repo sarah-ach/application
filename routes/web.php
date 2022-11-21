@@ -76,7 +76,10 @@ Route::group(['prefix' => 'admin'], function () {
         return view('admin.splices');
     });
     
-
+    Route::get('/IocardAdmin', function () {
+        return view('admin.IocardAdmin');
+    });
+    
     
     Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->middleware('role:admin');
     Route::get('/dashboard',[App\Http\Controllers\Admin\DashboardController::class, 'show']);
@@ -154,6 +157,11 @@ Route::get('/splices', function () {
     return view('admin.ajouter');
 });  */ 
 
+
+Route::get('/iocard', function () {
+    return view('operateur/iocard');
+});
+
  
 
  Route::controller(SpliceController::class)->group(function(){
@@ -170,6 +178,8 @@ Route::controller(homeController::class)->group(function(){
     Route::post('wires-import', 'import')->name('wires.import');
     Route::get('wires-delete', 'delete')->name('wires.delete');
 });
+
+
 
 
 //test d'aithentification admin/oper
